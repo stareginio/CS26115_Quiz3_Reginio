@@ -4,11 +4,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class CS26115_Test_Reginio extends JFrame implements ActionListener {
+public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
     
     private JButton clockBtn, countdownBtn, countupBtn, intlBtn;
     
-    public CS26115_Test_Reginio() {
+    public CS26115_Quiz3_Reginio() {
         setTitle("CS26115_Quiz3_Reginio");
         
         JPanel mainPnl = new JPanel();
@@ -93,7 +93,7 @@ public class CS26115_Test_Reginio extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         // Start the program
-        CS26115_Test_Reginio quizThree = new CS26115_Test_Reginio();
+        CS26115_Quiz3_Reginio quizThree = new CS26115_Quiz3_Reginio();
     }
 
     @Override
