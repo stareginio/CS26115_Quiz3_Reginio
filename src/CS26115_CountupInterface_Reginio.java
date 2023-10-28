@@ -136,13 +136,6 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         setVisible(true);
     }
     
-    public Thread getThreadByName(String threadName) {
-        for (Thread t : Thread.getAllStackTraces().keySet()) {
-            if (t.getName().equals(threadName)) return t;
-        }
-        return null;
-    }
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         CS26115_Countup_Reginio countup = new CS26115_Countup_Reginio();
@@ -182,5 +175,12 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
                 // NTS: CHANGE digital and analog clock appearances here
             }
         }
+    }
+    
+    public Thread getThreadByName(String threadName) {
+        for (Thread t : Thread.getAllStackTraces().keySet()) {
+            if (t.getName().equals(threadName)) return t;
+        }
+        return null;
     }
 }
