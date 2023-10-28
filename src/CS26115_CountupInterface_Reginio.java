@@ -16,8 +16,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         
         JPanel mainPnl = new JPanel();
         JPanel namePnl = new JPanel();
-        JPanel dgtlClockPnl = new JPanel();
-        JPanel anlgClockPnl = new JPanel();
+        JPanel clockPnl = new CS26115_CountupClocks_Reginio();
         JPanel spinnerPnl = new JPanel();
         JPanel buttonPnl = new JPanel();
         
@@ -29,11 +28,11 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         // for debugging
         mainPnl.setBackground(Color.pink);
         namePnl.setBackground(Color.green);
-        spinnerPnl.setBackground(Color.gray);
+        clockPnl.setBackground(Color.gray);
+        spinnerPnl.setBackground(Color.lightGray);
         buttonPnl.setBackground(Color.blue);
         
         // == Name Panel ==============================
-        namePnl.setLayout(new FlowLayout());
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         namePnl.setAlignmentX(Component.CENTER_ALIGNMENT);
         namePnl.setBorder(new EmptyBorder(0,30,10,30));
@@ -50,6 +49,17 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         gc.gridy = 0;
         
         mainPnl.add(namePnl, gc);
+        
+        // == Clock Panel ==============================
+        clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clockPnl.setBorder(new EmptyBorder(150,30,150,30));
+        
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.gridx = 0;
+        gc.gridy = 1;
+        
+        mainPnl.add(clockPnl, gc);
         
         // == Spinner Panel ==============================
         // 1 row, 6 columns
@@ -103,9 +113,10 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         spinnerPnl.add(secLbl);
         
         // -- add spinner panel to main panel ----------
+        gc.fill = GridBagConstraints.NONE;
         gc.ipady = 5;
         gc.gridx = 0;
-        gc.gridy = 1;
+        gc.gridy = 2;
         
         mainPnl.add(spinnerPnl, gc);
         
@@ -122,8 +133,9 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         buttonPnl.add(startBtn);
         
         // -- add spinner panel to main panel ----------
+        gc.ipady = 0;
         gc.gridx = 0;
-        gc.gridy = 2;
+        gc.gridy = 3;
         
         mainPnl.add(buttonPnl, gc);
         
