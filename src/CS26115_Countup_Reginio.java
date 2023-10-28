@@ -5,7 +5,7 @@ public class CS26115_Countup_Reginio extends Thread {
     
     private long startTime;
     private int[] inputTime;
-    private volatile boolean isRunning;
+    private boolean isRunning;
     
     public CS26115_Countup_Reginio() {
         setName("countup");
