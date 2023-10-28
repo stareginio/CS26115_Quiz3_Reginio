@@ -136,21 +136,51 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         setVisible(true);
     }
     
+    public Thread getThreadByName(String threadName) {
+        for (Thread t : Thread.getAllStackTraces().keySet()) {
+            if (t.getName().equals(threadName)) return t;
+        }
+        return null;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
+        CS26115_Countup_Reginio countup = new CS26115_Countup_Reginio();
+        
         if (e.getSource() == startBtn) {
+            Thread prevThread = getThreadByName("countup");
+            
+            // Stop previous countup if exists
+            if (prevThread != null && prevThread.isAlive()) {
+                prevThread.interrupt();
+            }
+            
             System.out.println("Button was pressed");
             
-            System.out.println("hrSpn: " + hrSpn.getValue());
-            System.out.println("minSpn: " + minSpn.getValue());
-            System.out.println("secSpn: " + secSpn.getValue());
-            // NTS: start countup here
-            CS26115_Countup_Reginio countup =
-                    new CS26115_Countup_Reginio(
-                            (Integer) hrSpn.getValue(),
-                            (Integer) minSpn.getValue(),
-                            (Integer) secSpn.getValue()
-                    );
+            int hr = (Integer) hrSpn.getValue();
+            int min = (Integer) minSpn.getValue();
+            int sec = (Integer) secSpn.getValue();
+            
+            System.out.println("hrSpn: " + hr);
+            System.out.println("minSpn: " + min);
+            System.out.println("secSpn: " + sec);
+            
+            // Check if input is invalid
+            if (hr == 0 && min == hr && sec == hr) {
+                JOptionPane.showMessageDialog(null,
+                        "Please provide valid values for the hours (00 to 11),"
+                                + " minutes (00 to 59),"
+                                + " and seconds (00 to 59)",
+                        "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+                
+                // NTS: RESET digital and analog clock appearances here (?)
+            } else {
+                // Start countup
+                countup.startThread();
+                
+                // NTS: CHANGE digital and analog clock appearances here
+            }
         }
     }
 }
