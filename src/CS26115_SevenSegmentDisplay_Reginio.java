@@ -18,16 +18,17 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         Area colon, upperLeftSegment, upperRightSegment, lowerLeftSegment,
                 lowerRightSegment, topSegment, middleSegment, lowerSegment;
         
-        // == Create shapes for the segment ==========
+        // == Create the upper left segment ==========
+        // -- Create the base shape ----------
         rectX = 30;
         rectY = 30;
         rectWidth = 8;
         rectHeight = 30;
         
-        // -- Create the base shape ----------
         Rectangle2D.Double rect = new Rectangle2D.Double(
                 rectX, rectY, rectWidth, rectHeight
         );
+        
         upperLeftSegment = new Area(rect);
         
         // -- Subtract the upper left corner ----------
@@ -67,9 +68,18 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         transformedShape = at.createTransformedShape(triangle);
         upperLeftSegment.subtract(new Area(transformedShape));
         
-        // -- Create the segment ----------        
+        // -- Create the segment ----------
         g2.setColor(Color.black);
         g2.fill(upperLeftSegment);
+        
+        // == Create the lower left segment ==========
+        lowerLeftSegment = upperLeftSegment;
+        
+        at = new AffineTransform();
+        at.translate(0, rectHeight + 2);
+        lowerLeftSegment.transform(at);
+        
+        g2.fill(lowerLeftSegment);
         
         // for debugging
 //        g2.setColor(Color.red);
