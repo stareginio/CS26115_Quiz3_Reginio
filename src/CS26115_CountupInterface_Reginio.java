@@ -36,7 +36,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         // == Name Panel ==============================
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         namePnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        namePnl.setBorder(new EmptyBorder(0,30,10,30));
+        namePnl.setBorder(new EmptyBorder(5,30,5,30));
         
         // -- create name label ----------
         JLabel nameLbl = new JLabel("COUNTUP");
@@ -152,7 +152,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        clockPnl.setBorder(new EmptyBorder(210,30,210,30));
+        clockPnl.setPreferredSize(new Dimension(60,420));
         
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -171,13 +171,20 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         // Check if countup is running
         if (isRunning) {
             int[] currentTime = getTime();
+            
+            // for debugging
+//            System.out.println(
+//                    "inputTime: " + String.format("%02d", inputTime[0])
+//                    + ":" + String.format("%02d", inputTime[0])
+//                    + ":" + String.format("%02d", inputTime[2])
+//            );
 
-            System.out.println("inputTime: " + inputTime[0] + ":"
-                            + inputTime[1] + ":" + inputTime[2]);
-
-            System.out.println("currentTime[0]: " + currentTime[0]);
-            System.out.println("currentTime[1]: " + currentTime[1]);
-            System.out.println("currentTime[2]: " + currentTime[2]);
+            System.out.println(
+                    String.format("%02d", getTime()[0])
+                    + ":" + String.format("%02d", getTime()[1])
+                    + ":" + String.format("%02d", getTime()[2])
+            );
+            
             getClockPanel(currentTime[0], currentTime[1], currentTime[2]);
 
             // Check if countup should be finished
@@ -186,6 +193,11 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
 //                timer.stop();
                 ((Timer) e.getSource()).stop();
                 isRunning = false;
+                
+//                20,30,20,30
+                Border stopBorder = BorderFactory.createLineBorder(Color.red, 6);
+                clockPnl.setPreferredSize(new Dimension(60,420));
+                clockPnl.setBorder(stopBorder);
             }
         }
         
@@ -238,8 +250,6 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         out[1] = (int)(milliTime / 60000) % 60;
         out[2] = (int)(milliTime / 1000) % 60;
         
-//        System.out.println(getTime()[0] + ":" + getTime()[1]
-//                                + ":" + getTime()[2]);
         return out;
     }
 }
