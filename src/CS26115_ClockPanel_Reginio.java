@@ -27,30 +27,30 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         digitWidth = 42;
         colonLength = 8;
         dist = 6;           // distance between digits and colons
-        CS26115_SevenSegmentDisplay_Reginio ssd =
-                new CS26115_SevenSegmentDisplay_Reginio(g2);
+        CS26115_DigitalClock_Reginio dc =
+                new CS26115_DigitalClock_Reginio(g2);
         
         // -- Draw the 1st pair of digits ----------
-        ssd.drawDigit(startingPoint, getSegmentColors(hr, "tens"));
-        ssd.drawDigit(startingPoint + digitWidth + dist,
+        dc.drawDigit(startingPoint, getSegmentColors(hr, "tens"));
+        dc.drawDigit(startingPoint + digitWidth + dist,
                         getSegmentColors(hr, "ones"));
         
         // -- Draw the 1st colon ----------
-        ssd.drawColon(startingPoint + digitWidth*2 + dist*2);
+        dc.drawColon(startingPoint + digitWidth*2 + dist*2);
         
         // -- Draw the 2nd pair of digits ----------
-        ssd.drawDigit(startingPoint + digitWidth*2 + colonLength + dist*3,
+        dc.drawDigit(startingPoint + digitWidth*2 + colonLength + dist*3,
                         getSegmentColors(min, "tens"));
-        ssd.drawDigit(startingPoint + digitWidth*3 + colonLength + dist*4,
+        dc.drawDigit(startingPoint + digitWidth*3 + colonLength + dist*4,
                         getSegmentColors(min, "ones"));
         
         // -- Draw the 2nd colon ----------
-        ssd.drawColon(startingPoint + digitWidth*4 + colonLength + dist*5);
+        dc.drawColon(startingPoint + digitWidth*4 + colonLength + dist*5);
         
         // -- Draw the 3rd pair of digits ----------
-        ssd.drawDigit(startingPoint + digitWidth*4 + colonLength*2 + dist*6,
+        dc.drawDigit(startingPoint + digitWidth*4 + colonLength*2 + dist*6,
                         getSegmentColors(sec, "tens"));
-        ssd.drawDigit(startingPoint + digitWidth*5 + colonLength*2 + dist*7,
+        dc.drawDigit(startingPoint + digitWidth*5 + colonLength*2 + dist*7,
                         getSegmentColors(sec, "ones"));
         
         // == Analog clock ==========
