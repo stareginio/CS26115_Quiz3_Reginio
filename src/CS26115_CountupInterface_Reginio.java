@@ -136,7 +136,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         // == Frame ==============================
         add(mainPnl);
         
-        setSize(450, 650);
+        setSize(450, 680);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -152,7 +152,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        clockPnl.setBorder(new EmptyBorder(150,30,150,30));
+        clockPnl.setBorder(new EmptyBorder(210,30,210,30));
         
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.HORIZONTAL;
