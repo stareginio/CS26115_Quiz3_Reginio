@@ -7,8 +7,10 @@ public class CS26115_Countup_Reginio extends Thread {
     private int[] inputTime;
     private boolean isRunning;
     
-    public CS26115_Countup_Reginio() {
+    public CS26115_Countup_Reginio(int hr, int min, int sec) {
         setName("countup");
+        inputTime = new int[]{ hr, min, sec };
+        
 //        System.out.println("Set thread name to: " + getName());;
     }
     
