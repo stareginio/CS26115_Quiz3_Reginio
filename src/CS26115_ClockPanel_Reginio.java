@@ -69,7 +69,7 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
             digit = Integer.toString(time % 10);
         }
         
-        System.out.println("digit: " + digit);
+//        System.out.println("getSegmentColors() ---- digit: " + digit);
         
         // get color based on the digit
         switch (digit) {
