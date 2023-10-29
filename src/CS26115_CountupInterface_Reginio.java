@@ -8,15 +8,15 @@ import javax.swing.text.NumberFormatter;
 
 public class CS26115_CountupInterface_Reginio extends JFrame implements ActionListener {
     
+    private JPanel mainPnl, clockPnl;
     private JSpinner hrSpn, minSpn, secSpn;
     private JButton startBtn;
     
     public CS26115_CountupInterface_Reginio() {
         setTitle("CS26115_Countup_Reginio");
         
-        JPanel mainPnl = new JPanel();
+        mainPnl = new JPanel();
         JPanel namePnl = new JPanel();
-        JPanel clockPnl = new CS26115_CountupClocks_Reginio();
         JPanel spinnerPnl = new JPanel();
         JPanel buttonPnl = new JPanel();
         
@@ -28,7 +28,6 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         // for debugging
         mainPnl.setBackground(Color.pink);
         namePnl.setBackground(Color.green);
-        clockPnl.setBackground(Color.gray);
         spinnerPnl.setBackground(Color.lightGray);
         buttonPnl.setBackground(Color.blue);
         
@@ -51,15 +50,8 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         mainPnl.add(namePnl, gc);
         
         // == Clock Panel ==============================
-        clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
-        clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        clockPnl.setBorder(new EmptyBorder(150,30,150,30));
-        
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        gc.gridx = 0;
-        gc.gridy = 1;
-        
-        mainPnl.add(clockPnl, gc);
+        // set to default time 00:00:00
+        getClockPanel(0,0,0);
         
         // == Spinner Panel ==============================
         // 1 row, 6 columns
@@ -75,17 +67,17 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         hrSpn = new JSpinner(spnModel);
         JFormattedTextField ftf =
                 ((JSpinner.NumberEditor) hrSpn.getEditor()).getTextField();
-        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
+//        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         spnModel = new SpinnerNumberModel(0,0,59,1);
         minSpn = new JSpinner(spnModel);
         ftf = ((JSpinner.NumberEditor) minSpn.getEditor()).getTextField();
-        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
+//        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         spnModel = new SpinnerNumberModel(0,0,59,1);
         secSpn = new JSpinner(spnModel);
         ftf =((JSpinner.NumberEditor) secSpn.getEditor()).getTextField();
-        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
+//        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         // -- apply zero-padding ----------
         hrSpn.setEditor(new JSpinner.NumberEditor(hrSpn, "00"));
@@ -148,6 +140,28 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         setVisible(true);
     }
     
+    public void getClockPanel(int hr, int min, int sec) {
+        // remove previous clock panel if exists
+        if (clockPnl != null) {
+            mainPnl.remove(clockPnl);
+        }
+        
+        clockPnl = new CS26115_ClockPanel_Reginio(hr, min, sec);
+        
+        clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clockPnl.setBorder(new EmptyBorder(150,30,150,30));
+        
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.gridx = 0;
+        gc.gridy = 1;
+        
+        mainPnl.add(clockPnl, gc);
+        mainPnl.revalidate();
+        mainPnl.repaint();
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         
@@ -174,19 +188,27 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
             
             // Check if input is invalid
             if (hr == 0 && min == hr && sec == hr) {
-                JOptionPane.showMessageDialog(null,
-                        "Please provide valid values for the hours (00 to 11),"
-                                + " minutes (00 to 59),"
-                                + " and seconds (00 to 59)",
+                JOptionPane.showMessageDialog(
+                        null,
+                        """
+                        Please provide valid values for the hours (00 to 11),
+                        minutes (00 to 59), and seconds (00 to 59).""",
                         "Error Message",
                         JOptionPane.ERROR_MESSAGE);
                 
                 // NTS: RESET digital and analog clock appearances here (?)
+                getClockPanel(0,0,0);
             } else {
+                // Update clock panel with the given time
+                getClockPanel(hr, min, sec);
+                
                 // Start countup
                 countup.startThread();
                 
                 // NTS: CHANGE digital and analog clock appearances here
+//                if () {
+//                    
+//                }
             }
         }
     }
