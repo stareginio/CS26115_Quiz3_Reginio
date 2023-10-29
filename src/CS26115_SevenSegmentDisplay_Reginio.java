@@ -4,22 +4,20 @@ import java.awt.geom.*;
 
 public class CS26115_SevenSegmentDisplay_Reginio {
     
-    Graphics2D g2;
+    private Graphics2D g2;
     
     public CS26115_SevenSegmentDisplay_Reginio(Graphics2D g2) {
         this.g2 = g2;
     }
     
-    public void drawDigit(int x) {
+    public void drawDigit(int x, Color[] colors) {
         // == Variables ====================
         int[] triangleX;
         int[] triangleY;
-        Color[] segmentColor;
         int rectWidth, rectHeight, segmentDist;
         Area verticalSegment, horizontalSegment;
         
         // == Create the upper left segment ====================
-//        segmentColor = getSegmentColors();
         int y = 30;
         rectWidth = 8;
         rectHeight = 30;
@@ -70,7 +68,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         verticalSegment.subtract(new Area(transformedShape));
         
         // -- Create the segment ----------
-        g2.setColor(Color.black);       // NTS: change depending on current time
+        g2.setColor(colors[0]);       // NTS: change depending on current time
         g2.fill(verticalSegment);
         
         // == Create the lower left segment ====================================
@@ -78,7 +76,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         at.translate(0, rectHeight + segmentDist);
         transformedShape = at.createTransformedShape(verticalSegment);
         
-        g2.setColor(Color.black);       // NTS: change depending on current time
+        g2.setColor(colors[1]);       // NTS: change depending on current time
         g2.fill(transformedShape);
         
         // == Create the upper right segment ===================================
@@ -86,15 +84,15 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         at.translate(rectHeight + segmentDist*2, 0);
         transformedShape = at.createTransformedShape(verticalSegment);
         
-        g2.setColor(Color.black);       // NTS: change depending on current time
+        g2.setColor(colors[2]);       // NTS: change depending on current time
         g2.fill(transformedShape);
         
-        // == Create the upper right segment ===================================
+        // == Create the lower right segment ===================================
         at = new AffineTransform();
         at.translate(0, rectHeight + segmentDist);
         transformedShape = at.createTransformedShape(transformedShape);
         
-        g2.setColor(Color.black);       // NTS: change depending on current time
+        g2.setColor(colors[3]);       // NTS: change depending on current time
         g2.fill(transformedShape);
         
         // == Create the top segment ====================
@@ -105,7 +103,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         at.translate(segmentDist, segmentDist);
         transformedShape = at.createTransformedShape(horizontalSegment);
         
-        g2.setColor(Color.black);       // NTS: change depending on current time
+        g2.setColor(colors[4]);       // NTS: change depending on current time
         g2.fill(transformedShape);
 
         // == Create the middle segment ====================
@@ -113,7 +111,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         at.translate(0, rectHeight + segmentDist + segmentDist/2);
         transformedShape = at.createTransformedShape(transformedShape);
         
-        g2.setColor(Color.black);       // NTS: change depending on current time
+        g2.setColor(colors[5]);       // NTS: change depending on current time
         g2.fill(transformedShape);
         
         // == Create the bottom segment ====================
@@ -121,7 +119,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         at.translate(0, rectHeight + segmentDist);
         transformedShape = at.createTransformedShape(transformedShape);
         
-        g2.setColor(Color.black);       // NTS: change depending on current time
+        g2.setColor(colors[6]);       // NTS: change depending on current time
         g2.fill(transformedShape);
     }
     
