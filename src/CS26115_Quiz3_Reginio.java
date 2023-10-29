@@ -115,3 +115,9 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
         }
     }
 }
+
+// References:
+// https://stackoverflow.com/questions/972194/zero-padding-a-spinner-in-java
+// https://stackoverflow.com/questions/9526041/how-to-program-for-a-stopwatch
+// https://stackoverflow.com/questions/19727449/java-how-to-update-a-panel-every-second
+// https://stackoverflow.com/questions/3858920/stop-a-swing-timer-from-inside-the-action-listener
