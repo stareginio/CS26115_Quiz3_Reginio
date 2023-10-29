@@ -14,13 +14,33 @@ public class CS26115_CountupClocks_Reginio extends JPanel {
         super.paintComponent(g2);
 
         // == Variables ==========
+        int startingPoint, digitWidth, colonLength, dist;
         
-        // == Digital clock ========== 
-        // -- Draw the digits ----------
+        // == Digital clock ==========
+        startingPoint = 25;
+        digitWidth = 42;
+        colonLength = 8;
+        dist = 6;           // distance between digits and colons
         CS26115_SevenSegmentDisplay_Reginio ssd =
                 new CS26115_SevenSegmentDisplay_Reginio(g2);
         
-        ssd.drawDigit();
+        // -- Draw the 1st pair of digits ----------
+        ssd.drawDigit(startingPoint);
+        ssd.drawDigit(startingPoint + digitWidth + dist);
+        
+        // -- Draw the 1st colon ----------
+        ssd.drawColon(startingPoint + digitWidth*2 + dist*2);
+        
+        // -- Draw the 2nd pair of digits ----------
+        ssd.drawDigit(startingPoint + digitWidth*2 + colonLength + dist*3);
+        ssd.drawDigit(startingPoint + digitWidth*3 + colonLength + dist*4);
+        
+        // -- Draw the 2nd colon ----------
+        ssd.drawColon(startingPoint + digitWidth*4 + colonLength + dist*5);
+        
+        // -- Draw the 3rd pair of digits ----------
+        ssd.drawDigit(startingPoint + digitWidth*4 + colonLength*2 + dist*6);
+        ssd.drawDigit(startingPoint + digitWidth*5 + colonLength*2 + dist*7);
         
         // NTS: call methods
         
