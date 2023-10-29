@@ -21,9 +21,10 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
 
         // == Variables ==========
         int startingPoint, digitWidth, colonLength, dist,
-                outerRadius, innerRadius, circleCenterX, circleCenterY,
+                outerRadius, innerRadius, middleRadius,
+                circleCenterX, circleCenterY,
                 hourMarkWidth, hourMarkHeight, hourMarkDist;
-        Area analogClockBase, hourMark;
+        Area analogClockBase, analogClockMiddle, hourMark;
         
         // == Digital clock ==========
         startingPoint = 25;
@@ -62,11 +63,13 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         circleCenterY = getHeight()/2 - outerRadius/2 + digitWidth + dist;
         
         // -- Create the base shape ----------
+        // black circle
         Ellipse2D.Double circle = new Ellipse2D.Double(
                 circleCenterX, circleCenterY, outerRadius, outerRadius
         );
         analogClockBase = new Area(circle);
         
+        // white circle
         innerRadius = outerRadius - dist*4;
         circle = new Ellipse2D.Double(
                 circleCenterX + dist*2, circleCenterY + dist*2,
@@ -74,8 +77,17 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         );
         analogClockBase.subtract(new Area(circle));
         
+        // small red circle
+        middleRadius = 10;
+        circle = new Ellipse2D.Double(
+                getWidth()/2 - middleRadius/2,
+                getHeight()/2 - middleRadius/2 + digitWidth + dist,
+                middleRadius, middleRadius
+        );
+        analogClockMiddle = new Area(circle);
+        
         // -- Create the hour marks ----------
-        hourMarkWidth = 6;
+        hourMarkWidth = 7;
         hourMarkHeight = 16;
         hourMarkDist = 20;
         
@@ -85,11 +97,7 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         );
         hourMark = new Area(rect);
         
-        // for debugging
-        g2.setColor(Color.red);
-        g2.fill(hourMark);
-        
-//        analogClockBase.add(hourMark);
+        analogClockBase.add(hourMark);
         
         // -- Create the hands ----------
         // NTS: call method here
@@ -97,6 +105,9 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         // -- Create the analog clock ----------
         g2.setColor(Color.black);
         g2.fill(analogClockBase);
+        
+        g2.setColor(Color.red);
+        g2.fill(analogClockMiddle);
         
         // reference for drawing circle at center:
         // https://stackoverflow.com/questions/19386951/how-to-draw-a-circle-with-given-x-and-y-coordinates-as-the-middle-spot-of-the-ci
