@@ -150,7 +150,6 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        CS26115_Countup_Reginio countup = new CS26115_Countup_Reginio();
         
         if (e.getSource() == startBtn) {
             Thread prevThread = getThreadByName("countup");
@@ -160,12 +159,15 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
                 prevThread.interrupt();
             }
             
-            System.out.println("Button was pressed");
-            
             int hr = (Integer) hrSpn.getValue();
             int min = (Integer) minSpn.getValue();
             int sec = (Integer) secSpn.getValue();
             
+            // Create countup thread
+            CS26115_Countup_Reginio countup =
+                    new CS26115_Countup_Reginio(hr, min, sec);
+            
+            System.out.println("Button was pressed");
             System.out.println("hrSpn: " + hr);
             System.out.println("minSpn: " + min);
             System.out.println("secSpn: " + sec);
