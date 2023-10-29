@@ -1,16 +1,18 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.text.NumberFormatter;
-
 
 public class CS26115_CountupInterface_Reginio extends JFrame implements ActionListener {
     
     private JPanel mainPnl, clockPnl;
     private JSpinner hrSpn, minSpn, secSpn;
     private JButton startBtn;
+    private int[] inputTime = { 0 ,0, 0 };
+    private long startTime = System.currentTimeMillis();
+    private boolean isRunning = false;
     
     public CS26115_CountupInterface_Reginio() {
         setTitle("CS26115_Countup_Reginio");
@@ -163,23 +165,37 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { 
+        Timer timer;
         
-        if (e.getSource() == startBtn) {
-            Thread prevThread = getThreadByName("countup");
-            
-            // Stop previous countup if exists
-            if (prevThread != null && prevThread.isAlive()) {
-                prevThread.interrupt();
+        // Check if countup is running
+        if (isRunning) {
+            int[] currentTime = getTime();
+
+            System.out.println("inputTime: " + inputTime[0] + ":"
+                            + inputTime[1] + ":" + inputTime[2]);
+
+            System.out.println("currentTime[0]: " + currentTime[0]);
+            System.out.println("currentTime[1]: " + currentTime[1]);
+            System.out.println("currentTime[2]: " + currentTime[2]);
+            getClockPanel(currentTime[0], currentTime[1], currentTime[2]);
+
+            // Check if countup should be finished
+            if (Arrays.equals(getTime(), inputTime)) {
+                System.out.println("-- STOP -----");
+//                timer.stop();
+                ((Timer) e.getSource()).stop();
+                isRunning = false;
             }
-            
+        }
+        
+        // Check if start button is clicked
+        if (e.getSource() == startBtn) {            
             int hr = (Integer) hrSpn.getValue();
             int min = (Integer) minSpn.getValue();
             int sec = (Integer) secSpn.getValue();
             
-            // Create countup thread
-            CS26115_Countup_Reginio countup =
-                    new CS26115_Countup_Reginio(hr, min, sec);
+            inputTime = new int[] { hr, min, sec };
             
             System.out.println("Button was pressed");
             System.out.println("hrSpn: " + hr);
@@ -187,36 +203,43 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
             System.out.println("secSpn: " + sec);
             
             // Check if input is invalid
-            if (hr == 0 && min == hr && sec == hr) {
+            if (Arrays.equals(inputTime, new int[] { 0, 0, 0 })) {
                 JOptionPane.showMessageDialog(
                         null,
                         """
                         Please provide valid values for the hours (00 to 11),
                         minutes (00 to 59), and seconds (00 to 59).""",
                         "Error Message",
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.ERROR_MESSAGE
+                );
                 
-                // NTS: RESET digital and analog clock appearances here (?)
+                // Reset clocks
                 getClockPanel(0,0,0);
             } else {
-                // Update clock panel with the given time
-                getClockPanel(hr, min, sec);
+                // Create timer
+                timer = new Timer(1000, this);
+                timer.setRepeats(true);
+                timer.setInitialDelay(1);
                 
-                // Start countup
-                countup.startThread();
-                
-                // NTS: CHANGE digital and analog clock appearances here
-//                if () {
-//                    
-//                }
+                // Start timer
+                System.out.println("-- START -----");
+                isRunning = true;
+                startTime = System.currentTimeMillis();
+                timer.start();
             }
         }
     }
     
-    public Thread getThreadByName(String threadName) {
-        for (Thread t : Thread.getAllStackTraces().keySet()) {
-            if (t.getName().equals(threadName)) return t;
-        }
-        return null;
+    public int[] getTime() {
+        long milliTime = System.currentTimeMillis() - startTime;
+        int[] out = new int[]{ 0, 0, 0 };
+        
+        out[0] = (int)(milliTime / 3600000);
+        out[1] = (int)(milliTime / 60000) % 60;
+        out[2] = (int)(milliTime / 1000) % 60;
+        
+//        System.out.println(getTime()[0] + ":" + getTime()[1]
+//                                + ":" + getTime()[2]);
+        return out;
     }
 }
