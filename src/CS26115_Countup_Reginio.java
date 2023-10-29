@@ -7,15 +7,17 @@ public class CS26115_Countup_Reginio extends Thread {
     private int[] inputTime;
     private boolean isRunning;
     
-    public CS26115_Countup_Reginio(int hr, int min, int sec) {
+    // NTS: unused class !!!!!!!!!!!
+    
+    public CS26115_Countup_Reginio(int[] inputTime) {
+        this.inputTime = inputTime;
         setName("countup");
-        inputTime = new int[]{ hr, min, sec };
-        
 //        System.out.println("Set thread name to: " + getName());;
     }
     
     public void startThread() {
-        startTime = System.currentTimeMillis();
+//        startTime = System.currentTimeMillis();
+        startTime = 0;
         isRunning = true;
         start();
     }
@@ -34,13 +36,17 @@ public class CS26115_Countup_Reginio extends Thread {
         System.out.println("The countup is starting");
         
         try {
+            int prevSec = -1;
             while (isRunning) {
-                if (Arrays.equals(getOutputTime(), inputTime)) {
-                    stopThread();
-                }
+                if (getTime()[2] != prevSec) {
+                    System.out.println(getTime()[0] + ":" + getTime()[1]
+                                    + ":" + getTime()[2]);
+                    prevSec = getTime()[2];
 
-                System.out.println(getOutputTime()[0] + ":" + getOutputTime()[1]
-                                    + ":" + getOutputTime()[2]);
+                    if (Arrays.equals(getTime(), inputTime)) {
+                        stopThread();
+                    }
+                }
             }
         } catch (Exception e) {
             stopThread();
@@ -49,7 +55,7 @@ public class CS26115_Countup_Reginio extends Thread {
         System.out.println("The countup is done");
     }
     
-    public int[] getOutputTime() {
+    public int[] getTime() {
         long milliTime = System.currentTimeMillis() - startTime;
         int[] out = new int[]{ 0, 0, 0 };
         
@@ -60,9 +66,5 @@ public class CS26115_Countup_Reginio extends Thread {
 //        System.out.println(getTime()[0] + ":" + getTime()[1]
 //                                + ":" + getTime()[2]);
         return out;
-    }
-    
-    public void getInputTime(int hr, int min, int sec) {
-        inputTime = new int[]{ hr, min, sec };
     }
 }
