@@ -20,7 +20,10 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         super.paintComponent(g2);
 
         // == Variables ==========
-        int startingPoint, digitWidth, colonLength, dist;
+        int startingPoint, digitWidth, colonLength, dist,
+                outerRadius, innerRadius, circleCenterX, circleCenterY,
+                hourMarkWidth, hourMarkHeight, hourMarkDist;
+        Area analogClockBase, hourMark;
         
         // == Digital clock ==========
         startingPoint = 25;
@@ -54,6 +57,46 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
                         getSegmentColors(sec, "ones"));
         
         // == Analog clock ==========
+        outerRadius = getWidth() - getWidth()/4;
+        circleCenterX = getWidth()/2 - outerRadius/2;
+        circleCenterY = getHeight()/2 - outerRadius/2 + digitWidth + dist;
+        
+        // -- Create the base shape ----------
+        Ellipse2D.Double circle = new Ellipse2D.Double(
+                circleCenterX, circleCenterY, outerRadius, outerRadius
+        );
+        analogClockBase = new Area(circle);
+        
+        innerRadius = outerRadius - dist*4;
+        circle = new Ellipse2D.Double(
+                circleCenterX + dist*2, circleCenterY + dist*2,
+                innerRadius, innerRadius
+        );
+        analogClockBase.subtract(new Area(circle));
+        
+        // -- Create the hour marks ----------
+        hourMarkWidth = 6;
+        hourMarkHeight = 16;
+        hourMarkDist = 20;
+        
+        Rectangle2D.Double rect = new Rectangle2D.Double(
+                getWidth()/2 - hourMarkWidth/2, circleCenterY + hourMarkDist,
+                hourMarkWidth, hourMarkHeight
+        );
+        hourMark = new Area(rect);
+        
+        // for debugging
+        g2.setColor(Color.red);
+        g2.fill(hourMark);
+        
+//        analogClockBase.add(hourMark);
+        
+        // -- Create the hands ----------
+        // NTS: call method here
+        
+        // -- Create the analog clock ----------
+        g2.setColor(Color.black);
+        g2.fill(analogClockBase);
         
         // reference for drawing circle at center:
         // https://stackoverflow.com/questions/19386951/how-to-draw-a-circle-with-given-x-and-y-coordinates-as-the-middle-spot-of-the-ci
