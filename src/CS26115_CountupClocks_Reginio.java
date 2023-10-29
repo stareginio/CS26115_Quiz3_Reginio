@@ -14,68 +14,15 @@ public class CS26115_CountupClocks_Reginio extends JPanel {
         super.paintComponent(g2);
 
         // == Variables ==========
-        int[] triangleX;
-        int[] triangleY;
-        int rectX, rectY, rectWidth, rectHeight;
-        Area segment, colon;
         
         // == Digital clock ========== 
-        // -- Create shapes for the seven-segment display ----------
-        rectX = 30;
-        rectY = 30;
-        rectWidth = 8;
-        rectHeight = 30;
+        // -- Draw the digits ----------
+        CS26115_SevenSegmentDisplay_Reginio ssd =
+                new CS26115_SevenSegmentDisplay_Reginio(g2);
         
-        // ~~ create the base shape ~~~~~~~~~~
-        Rectangle2D.Double rect = new Rectangle2D.Double(
-                rectX, rectY, rectWidth, rectHeight
-        );
-        segment = new Area(rect);
+        ssd.drawDigit();
         
-        // ~~ subtract the upper left corner ~~~~~~~~~~
-        triangleX = new int[] { rectX, rectX, (rectX + rectWidth/2) };
-        triangleY = new int[] { (rectX + rectWidth/2), rectY, rectY };
-        Polygon triangle = new Polygon(triangleX, triangleY, 3);
-        
-        segment.subtract(new Area(triangle));
-        
-        // ~~ subtract the upper right corner ~~~~~~~~~~
-        triangle = new Polygon(triangleX, triangleY, 3);
-        
-        AffineTransform at = new AffineTransform();
-        at.rotate(Math.toRadians(90), (rectX + rectWidth/2), ((rectY+rectHeight)/2));
-        at.translate(rectWidth/2, -rectWidth/2);
-        
-        Shape transformedShape = at.createTransformedShape(triangle);
-        segment.subtract(new Area(transformedShape));
-        
-        // ~~ subtract the bottom right corner ~~~~~~~~~~
-        triangle = new Polygon(triangleX, triangleY, 3);
-        
-        at = new AffineTransform();
-        at.rotate(Math.toRadians(180), (rectX + rectWidth/2), ((rectY+rectHeight)/2));
-        at.translate(0, -rectHeight);
-
-        transformedShape = at.createTransformedShape(triangle);
-        segment.subtract(new Area(transformedShape));
-        
-        // ~~ subtract the bottom left corner ~~~~~~~~~~
-        triangle = new Polygon(triangleX, triangleY, 3);
-        
-        at = new AffineTransform();
-        at.rotate(Math.toRadians(270), (rectX + rectWidth/2), ((rectY+rectHeight)/2));
-        at.translate(-(rectHeight - rectWidth/2), -rectWidth/2);
-
-        transformedShape = at.createTransformedShape(triangle);
-        segment.subtract(new Area(transformedShape));
-        
-        // -- Create the segment ----------        
-        g2.setColor(Color.black);
-        g2.fill(segment);
-        
-        // for debugging
-//        g2.setColor(Color.red);
-//        g2.fill(new Area(transformedShape));
+        // NTS: call methods
         
         // -- Draw the digital clock ----------
         
