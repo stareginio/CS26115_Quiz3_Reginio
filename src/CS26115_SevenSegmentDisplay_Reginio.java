@@ -5,37 +5,36 @@ import java.awt.geom.*;
 public class CS26115_SevenSegmentDisplay_Reginio {
     
     Graphics2D g2;
-//    AffineTransform oldTransform;
     
     public CS26115_SevenSegmentDisplay_Reginio(Graphics2D g2) {
         this.g2 = g2;
-//        oldTransform = g2.getTransform();
     }
     
-    public void drawDigit() {
+    public void drawDigit(int x) {
         // == Variables ====================
         int[] triangleX;
         int[] triangleY;
-        int rectX, rectY, rectWidth, rectHeight, segmentDist;
-        Area colon, verticalSegment, horizontalSegment;
+        Color[] segmentColor;
+        int rectWidth, rectHeight, segmentDist;
+        Area verticalSegment, horizontalSegment;
         
         // == Create the upper left segment ====================
-        // -- Create the base shape ----------
-        rectX = 30;     // NTS: modify x value for the other digits
-        rectY = 30;
+//        segmentColor = getSegmentColors();
+        int y = 30;
         rectWidth = 8;
         rectHeight = 30;
         segmentDist = 2;
         
+        // -- Create the base shape ----------        
         Rectangle2D.Double rect = new Rectangle2D.Double(
-                rectX, rectY, rectWidth, rectHeight
+                x, y, rectWidth, rectHeight
         );
         
         verticalSegment = new Area(rect);
         
         // -- Subtract the upper left corner ----------
-        triangleX = new int[] { rectX, rectX, (rectX + rectWidth/2) };
-        triangleY = new int[] { (rectX + rectWidth/2), rectY, rectY };
+        triangleX = new int[] { x, x, (x + rectWidth/2) };
+        triangleY = new int[] { (y + rectWidth/2), y, y };
         Polygon triangle = new Polygon(triangleX, triangleY, 3);
         
         verticalSegment.subtract(new Area(triangle));
@@ -44,7 +43,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         AffineTransform at = new AffineTransform();
-        at.rotate(Math.toRadians(90), (rectX + rectWidth/2), ((rectY+rectHeight)/2));
+        at.rotate(Math.toRadians(90), (x + rectWidth/2), ((y+rectHeight)/2));
         at.translate(rectWidth/2, -rectWidth/2);
         
         Shape transformedShape = at.createTransformedShape(triangle);
@@ -54,7 +53,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(180), (rectX + rectWidth/2), ((rectY+rectHeight)/2));
+        at.rotate(Math.toRadians(180), (x + rectWidth/2), ((y+rectHeight)/2));
         at.translate(0, -rectHeight);
 
         transformedShape = at.createTransformedShape(triangle);
@@ -64,7 +63,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(270), (rectX + rectWidth/2), ((rectY+rectHeight)/2));
+        at.rotate(Math.toRadians(270), (x + rectWidth/2), ((y+rectHeight)/2));
         at.translate(-(rectHeight - rectWidth/2), -rectWidth/2);
 
         transformedShape = at.createTransformedShape(triangle);
@@ -102,7 +101,7 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         horizontalSegment = verticalSegment;
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(270), (rectX + rectWidth/2) , rectY);
+        at.rotate(Math.toRadians(270), (x + rectWidth/2) , y);
         at.translate(segmentDist, segmentDist);
         transformedShape = at.createTransformedShape(horizontalSegment);
         
@@ -124,9 +123,27 @@ public class CS26115_SevenSegmentDisplay_Reginio {
         
         g2.setColor(Color.black);       // NTS: change depending on current time
         g2.fill(transformedShape);
+    }
+    
+    public void drawColon(int x) {
+        // == Variables ====================
+        int y, length, dist;
+        Rectangle2D.Double upperDot;
         
-        // for debugging
-//        g2.setColor(Color.red);
-//        g2.fill(new Area(transformedShape));
+        // == Create the upper dot ====================
+        y = 45;         // should be greater than rectHeight
+        length = 8;     // should be same with rectWidth
+        upperDot = new Rectangle2D.Double(x, y, length, length);
+        
+        g2.setColor(Color.black);
+        g2.fill(upperDot);
+        
+        // == Create the lower dot ====================
+        AffineTransform at = new AffineTransform();
+        at.translate(0, 25);
+        Shape lowerDot = at.createTransformedShape(upperDot);
+        
+        g2.setColor(Color.black);
+        g2.fill(lowerDot);
     }
 }
