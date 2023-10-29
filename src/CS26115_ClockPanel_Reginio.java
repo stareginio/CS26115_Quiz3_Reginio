@@ -3,10 +3,16 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
-public class CS26115_CountupClocks_Reginio extends JPanel {
+public class CS26115_ClockPanel_Reginio extends JPanel {
+    
+    int hr, min, sec;
     
     // Constructor
-    CS26115_CountupClocks_Reginio() { }
+    CS26115_ClockPanel_Reginio(int hr, int min, int sec) {
+        this.hr = hr;
+        this.min = min;
+        this.sec = sec;
+    }
     
     @Override
     public void paintComponent(Graphics g) {
@@ -22,7 +28,9 @@ public class CS26115_CountupClocks_Reginio extends JPanel {
         colonLength = 8;
         dist = 6;           // distance between digits and colons
         CS26115_SevenSegmentDisplay_Reginio ssd =
-                new CS26115_SevenSegmentDisplay_Reginio(g2);
+                new CS26115_SevenSegmentDisplay_Reginio(
+                        hr, min, sec, g2
+                );
         
         // -- Draw the 1st pair of digits ----------
         ssd.drawDigit(startingPoint);
@@ -41,10 +49,6 @@ public class CS26115_CountupClocks_Reginio extends JPanel {
         // -- Draw the 3rd pair of digits ----------
         ssd.drawDigit(startingPoint + digitWidth*4 + colonLength*2 + dist*6);
         ssd.drawDigit(startingPoint + digitWidth*5 + colonLength*2 + dist*7);
-        
-        // NTS: call methods
-        
-        // -- Draw the digital clock ----------
         
         // == Analog clock ==========
         
