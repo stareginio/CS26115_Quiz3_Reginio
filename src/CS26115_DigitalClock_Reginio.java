@@ -10,19 +10,21 @@ public class CS26115_DigitalClock_Reginio {
         this.g2 = g2;
     }
     
-    public void paintDigit(int x, Color[] colors) {
+    public void paintDigit(int x, int time, String digit) {
         // == Variables ====================
         int[] triangleX;
         int[] triangleY;
-        int rectWidth, rectHeight, segmentDist;
+        int y, rectWidth, rectHeight, segmentDist;
         Area verticalSegment, horizontalSegment;
         Shape transformedShape;
         Polygon triangle;
         Rectangle2D.Double rect;
         AffineTransform at;
         
+        Color colors[] = getSegmentColors(time, digit);
+        
         // == Create the upper left segment ====================
-        int y = 30;
+        y = 30;
         rectWidth = 8;
         rectHeight = 30;
         segmentDist = 2;
@@ -149,5 +151,76 @@ public class CS26115_DigitalClock_Reginio {
         
         g2.setColor(Color.black);
         g2.fill(lowerDot);
+    }
+    
+    public Color[] getSegmentColors(int time, String digit) {
+        Color[] colors = {};
+        
+        // == Get the given digit from the integer ==========
+        if (digit.equals("tens")) {
+            digit = Integer.toString(time % 100 / 10);
+        } else if (digit.equals("ones")) {
+            digit = Integer.toString(time % 10);
+        }
+        
+//        System.out.println("getSegmentColors() ---- digit: " + digit);
+        
+        // == Get the colors for the digit ==========
+        switch (digit) {
+            case "0" -> colors = new Color[] {
+                    Color.black, Color.black,
+                    Color.black, Color.black,
+                    Color.black, Color.lightGray, Color.black
+                };
+            case "1" -> colors = new Color[] {
+                    Color.lightGray, Color.lightGray,
+                    Color.black, Color.black,
+                    Color.lightGray, Color.lightGray, Color.lightGray
+                };
+            case "2" -> colors = new Color[] {
+                    Color.lightGray, Color.black,
+                    Color.black, Color.lightGray,
+                    Color.black, Color.black, Color.black
+                };
+            case "3" -> colors = new Color[] {
+                    Color.lightGray, Color.lightGray,
+                    Color.black, Color.black,
+                    Color.black, Color.black, Color.black
+                };
+            case "4" -> colors = new Color[] {
+                    Color.black, Color.lightGray,
+                    Color.black, Color.black,
+                    Color.lightGray, Color.black, Color.lightGray
+                };
+            case "5" -> colors = new Color[] {
+                    Color.black, Color.lightGray,
+                    Color.lightGray, Color.black,
+                    Color.black, Color.black, Color.black
+                };
+            case "6" -> colors = new Color[] {
+                    Color.black, Color.black,
+                    Color.lightGray, Color.black,
+                    Color.black, Color.black, Color.black
+                };
+            case "7" -> colors = new Color[] {
+                    Color.lightGray, Color.lightGray,
+                    Color.black, Color.black,
+                    Color.black, Color.lightGray, Color.lightGray
+                };
+            case "8" -> colors = new Color[] {
+                    Color.black, Color.black,
+                    Color.black, Color.black,
+                    Color.black, Color.black, Color.black
+                };
+            case "9" -> colors = new Color[] {
+                    Color.black, Color.lightGray,
+                    Color.black, Color.black,
+                    Color.black, Color.black, Color.black
+                };
+            default -> {
+            }
+        }
+    
+        return colors;
     }
 }
