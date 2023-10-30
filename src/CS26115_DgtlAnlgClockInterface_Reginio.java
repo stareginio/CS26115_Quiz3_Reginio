@@ -44,7 +44,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         // == Name Panel ==============================
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         namePnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        namePnl.setBorder(new EmptyBorder(0,30,10,30));
+        namePnl.setBorder(new EmptyBorder(0,30,20,30));
         
         // -- create name label ----------
         JLabel nameLbl = new JLabel(buttonName.toUpperCase());
@@ -69,25 +69,21 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         gridLayout.setHgap(10);
         
         spinnerPnl.setLayout(gridLayout);
-        spinnerPnl.setBorder(new EmptyBorder(20,30,20,30));
+        spinnerPnl.setBorder(new EmptyBorder(20,40,20,20));
         
         // -- create spinners ----------
         // start value, minimum value, maximum value, step value
         SpinnerModel spnModel = new SpinnerNumberModel(0,0,maxHr,1);
         hrSpn = new JSpinner(spnModel);
-//        JFormattedTextField ftf =
-//                ((JSpinner.NumberEditor) hrSpn.getEditor()).getTextField();
-//        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         spnModel = new SpinnerNumberModel(0,0,59,1);
         minSpn = new JSpinner(spnModel);
-//        ftf = ((JSpinner.NumberEditor) minSpn.getEditor()).getTextField();
-//        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         spnModel = new SpinnerNumberModel(0,0,59,1);
         secSpn = new JSpinner(spnModel);
-//        ftf =((JSpinner.NumberEditor) secSpn.getEditor()).getTextField();
-//        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
+        
+        // adjust height
+        hrSpn.setPreferredSize(new Dimension(hrSpn.getWidth(), 25));
         
         // -- apply zero-padding ----------
         hrSpn.setEditor(new JSpinner.NumberEditor(hrSpn, "00"));
@@ -96,13 +92,8 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         
         // -- create labels ----------
         JLabel hrLbl = new JLabel("hr");
-//        hrLbl.setBorder(new EmptyBorder(0,15,0,15));
-        
         JLabel minLbl = new JLabel("min");
-//        minLbl.setBorder(new EmptyBorder(0,15,0,15));
-        
         JLabel secLbl = new JLabel("sec");
-//        secLbl.setBorder(new EmptyBorder(0,15,0,15));
         
         // -- add components to spinner panel ----------
         spinnerPnl.add(hrSpn);
@@ -125,7 +116,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         // == Button Panel ==============================
         buttonPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         buttonPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonPnl.setBorder(new EmptyBorder(20,30,10,30));
+        buttonPnl.setBorder(new EmptyBorder(10,30,10,30));
         
         // -- create start button ----------
         startBtn = new JButton("Start");
@@ -162,7 +153,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        clockPnl.setPreferredSize(new Dimension(60,420));
+        clockPnl.setPreferredSize(new Dimension(0,400));
         
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -175,10 +166,14 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {       
+    public void actionPerformed(ActionEvent e) {
+        CS26115_Time_Reginio t = new CS26115_Time_Reginio();
+        
         // == Check if countup is running ==============================
         if (isRunning) {
-            int[] currentTime = getCurrentTime();
+            int[] currentTime = t.getCurrentTime(
+                    buttonName, startTime, endTime
+            );
             
 //            System.out.println(
 //                    "inputTime: " + String.format("%02d", inputTime[0])
@@ -187,11 +182,12 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
 //            );
 
             System.out.println(
-                    String.format("%02d", getCurrentTime()[0])
-                    + ":" + String.format("%02d", getCurrentTime()[1])
-                    + ":" + String.format("%02d", getCurrentTime()[2])
+                    String.format("%02d", currentTime[0])
+                    + ":" + String.format("%02d", currentTime[1])
+                    + ":" + String.format("%02d", currentTime[2])
             );
             
+            // Update the clock panel
             getClockPanel(currentTime[0], currentTime[1], currentTime[2]);
             
             // Check if countup should be finished
@@ -199,21 +195,21 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
             // For countup, stop if the input time is reached
             // Note: no stop for clock
             if ((buttonName.equals("countup")
-                    && Arrays.equals(getCurrentTime(), inputTime))
+                    && Arrays.equals(currentTime, inputTime))
                     || (buttonName.equals("countdown")
-                    && Arrays.equals(getCurrentTime(), new int[] { 0,0,0 }))) {
+                    && Arrays.equals(currentTime, new int[] {0,0,0}))) {
                 System.out.println("-- STOP -----");
                 timer.stop();
                 isRunning = false;
                 
                 Border stopBorder = BorderFactory.createLineBorder(Color.red, 6);
-                clockPnl.setPreferredSize(new Dimension(60,420));
+                clockPnl.setPreferredSize(new Dimension(60,400));
                 clockPnl.setBorder(stopBorder);
             }
         }
         
         // == Check if start button is clicked ==============================
-        if (e.getSource() == startBtn) {    
+        if (e.getSource() == startBtn) {
             int hr = (Integer) hrSpn.getValue();
             int min = (Integer) minSpn.getValue();
             int sec = (Integer) secSpn.getValue();
@@ -226,7 +222,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
 //            System.out.println("secSpn: " + sec);
             
             // Check if input is invalid
-            if (Arrays.equals(inputTime, new int[] { 0,0,0 })) {
+            if (Arrays.equals(inputTime, new int[] {0,0,0})) {
                 JOptionPane.showMessageDialog(
                         null,
                         "Please provide valid values for the hours (00 to "
@@ -253,7 +249,11 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
                 if (buttonName.equals("countup")) {
                     startTime = System.currentTimeMillis();
                 } else {    // clock and countdown
-                    startTime = getStartTimeMillis();
+                    startTime = t.getStartTimeMillis(inputTime, buttonName);
+                    
+                    if (buttonName.equals("countdown")) {
+                        endTime = t.getEndTime(startTime);
+                    }
                 }
                 
                 // Start timer
@@ -262,41 +262,6 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
                 timer.start();
             }
         }
-    }
-    
-    public int[] getCurrentTime() {
-        int[] time = new int[]{ 0, 0, 0 };
-        long milliTime = System.currentTimeMillis() - startTime;
-        
-        if (buttonName.equals("countdown")) {
-//            milliTime = startTime - (System.currentTimeMillis() - startTime);
-            milliTime = endTime - System.currentTimeMillis();
-        }
-        
-        time[0] = (int)(milliTime / 3600000);
-        time[1] = (int)(milliTime / 60000) % 60;
-        time[2] = (int)(milliTime / 1000) % 60;
-        
-        // Reset display to 00:00:00 when time reaches 24:00:00
-        if (buttonName.equals("clock") && time[0] >= 24) {
-            time[0] = (int) (time[0] - 24 * Math.floor(time[0]/24));
-        }
-        
-        return time;
-    }
-    
-    public long getStartTimeMillis() {
-        long time = TimeUnit.HOURS.toMillis(inputTime[0]);
-        time += TimeUnit.MINUTES.toMillis(inputTime[1]);
-        time += TimeUnit.SECONDS.toMillis(inputTime[2]);
-        
-        if (buttonName.equals("countdown")) {
-            // add 1000 for 1 second delay
-            endTime = System.currentTimeMillis() + time + 1000;
-        }
-        time = System.currentTimeMillis() - time;
-        
-        return time;
     }
     
     private void addActionListeners() {
