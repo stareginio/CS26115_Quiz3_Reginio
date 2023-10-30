@@ -4,6 +4,7 @@ import java.awt.geom.*;
 
 public class CS26115_AnalogClock_Reginio {
 
+    private int timeMarkX, timeMarkY;
     private Graphics2D g2;
     
     public CS26115_AnalogClock_Reginio(Graphics2D g2) {
@@ -14,21 +15,23 @@ public class CS26115_AnalogClock_Reginio {
             int digitWidth, int dist) {
         // == Variables ==========
         int outerRadius, innerRadius, middleRadius,
-                circleCenterX, circleCenterY, timeMarkX, timeMarkY,
-                hourMarkWidth, hourMarkHeight, minuteMarkWidth, minuteMarkHeight,
+                circleCenterX, circleCenterY,
+                hourMarkWidth, hourMarkHeight,
+                minuteMarkWidth, minuteMarkHeight,
                 timeMarkDist;
         Area analogClockBase, analogClockMiddle, timeMarks;
+        Ellipse2D.Double circle;
         Rectangle2D.Double hourMark, minuteMark;
         Shape transformedShape;
         AffineTransform at;
         
         // == Create the base shape ==========
-        outerRadius = panelWidth - panelWidth/4;
+        outerRadius = panelWidth * 3/4;
         circleCenterX = panelWidth/2 - outerRadius/2;
         circleCenterY = panelHeight/2 - outerRadius/2 + digitWidth + dist;
         
         // -- Black circle ----------
-        Ellipse2D.Double circle = new Ellipse2D.Double(
+        circle = new Ellipse2D.Double(
                 circleCenterX, circleCenterY, outerRadius, outerRadius
         );
         analogClockBase = new Area(circle);
@@ -36,19 +39,11 @@ public class CS26115_AnalogClock_Reginio {
         // -- White circle ----------
         innerRadius = outerRadius - dist*4;
         circle = new Ellipse2D.Double(
-                circleCenterX + dist*2, circleCenterY + dist*2,
+                circleCenterX + dist*2,
+                circleCenterY + dist*2,
                 innerRadius, innerRadius
         );
         analogClockBase.subtract(new Area(circle));
-        
-        // -- Small red circle ----------
-        middleRadius = 10;
-        circle = new Ellipse2D.Double(
-                panelWidth/2 - middleRadius/2,
-                panelHeight/2 - middleRadius/2 + digitWidth + dist,
-                middleRadius, middleRadius
-        );
-        analogClockMiddle = new Area(circle);
         
         // == Create the time marks ==========
         hourMarkWidth = 5;
@@ -63,7 +58,8 @@ public class CS26115_AnalogClock_Reginio {
         
         // -- Hour mark ----------
         hourMark = new Rectangle2D.Double(
-                panelWidth/2 - hourMarkWidth/2, circleCenterY + timeMarkDist,
+                panelWidth/2 - hourMarkWidth/2,
+                circleCenterY + timeMarkDist,
                 hourMarkWidth, hourMarkHeight
         );
         timeMarks = new Area(hourMark);
@@ -71,7 +67,8 @@ public class CS26115_AnalogClock_Reginio {
         // -- Minute mark ----------
         // 1st mark
         minuteMark = new Rectangle2D.Double(
-                panelWidth/2 - hourMarkWidth/2, circleCenterY + timeMarkDist,
+                panelWidth/2 - hourMarkWidth/2,
+                circleCenterY + timeMarkDist,
                 minuteMarkWidth, minuteMarkHeight
         );
         
@@ -95,7 +92,7 @@ public class CS26115_AnalogClock_Reginio {
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
-//        // -- 12 o' clock ----------
+        // -- 12 o' clock ----------
         analogClockBase.add(timeMarks);
         
         // -- 1 to 11 o' clock ----------
@@ -107,20 +104,68 @@ public class CS26115_AnalogClock_Reginio {
         }
         
         analogClockBase.add(timeMarks);
-
-        // for debugging
-//        g2.setColor(Color.red);
-//        g2.fill(timeMarks);
         
         // == Create the analog clock without the hands ==========
         g2.setColor(Color.black);
         g2.fill(analogClockBase);
+    }
+    
+    public void paintHands(int panelWidth) {
+        // == Variables ==========
+        int hourHandWidth, hourHandHeight,
+                minuteHandWidth, minuteHandHeight,
+                secondHandWidth, secondHandHeight;
+        Area hourHand, minuteHand, secondHand;
+        Rectangle2D.Double rect;
+        Shape transformedShape;
+        AffineTransform at;
+        
+        // == Hour hand ==========
+        hourHandWidth = 11;
+        hourHandHeight = panelWidth/4;
+        
+        rect = new Rectangle2D.Double(
+                timeMarkX - hourHandWidth/2,
+                timeMarkY - hourHandHeight * 3/4,
+                hourHandWidth, hourHandHeight
+        );
+        hourHand = new Area(rect);
+        
+        g2.setColor(Color.black);
+        g2.fill(hourHand);
+        
+        // == Minute hand ==========
+        minuteHandWidth = 7;
+        minuteHandHeight = panelWidth*4/11;
+        
+        rect = new Rectangle2D.Double(
+                timeMarkX - minuteHandWidth/2,
+                timeMarkY - minuteHandHeight * 9/11 - 1,
+                minuteHandWidth, minuteHandHeight
+        );
+        minuteHand = new Area(rect);
+        
+        g2.setColor(Color.black);
+        g2.fill(minuteHand);
+    }
+    
+    public void paintRedCircle(int panelWidth, int panelHeight,
+            int digitWidth, int dist) {
+        // == Variables ==========
+        int middleRadius;
+        Ellipse2D.Double circle;
+        Area analogClockMiddle;
+        
+        // == Create the red circle ==========
+        middleRadius = 6;
+        circle = new Ellipse2D.Double(
+                panelWidth/2 - middleRadius/2,
+                panelHeight/2 - middleRadius/2 + digitWidth + dist,
+                middleRadius, middleRadius
+        );
+        analogClockMiddle = new Area(circle);
         
         g2.setColor(Color.red);
         g2.fill(analogClockMiddle);
-    }
-    
-    public void paintHands() {
-        
     }
 }
