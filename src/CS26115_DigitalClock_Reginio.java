@@ -24,9 +24,9 @@ public class CS26115_DigitalClock_Reginio {
         Color colors[] = getSegmentColors(time, digit);
         
         // == Create the upper left segment ====================
-        y = 30;
+        y = 25;
         rectWidth = 8;
-        rectHeight = 30;
+        rectHeight = y;
         segmentDist = 2;
         
         // -- Create the base shape ----------        
@@ -47,7 +47,7 @@ public class CS26115_DigitalClock_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(90), (x + rectWidth/2), ((y+rectHeight)/2));
+        at.rotate(Math.toRadians(90), (x + rectWidth/2), ((y + rectHeight)/2));
         at.translate(rectWidth/2, -rectWidth/2);
         
         transformedShape = at.createTransformedShape(triangle);
@@ -57,7 +57,7 @@ public class CS26115_DigitalClock_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(180), (x + rectWidth/2), ((y+rectHeight)/2));
+        at.rotate(Math.toRadians(180), (x + rectWidth/2), ((y + rectHeight)/2));
         at.translate(0, -rectHeight);
 
         transformedShape = at.createTransformedShape(triangle);
@@ -67,14 +67,14 @@ public class CS26115_DigitalClock_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(270), (x + rectWidth/2), ((y+rectHeight)/2));
+        at.rotate(Math.toRadians(270), (x + rectWidth/2), ((y + rectHeight)/2));
         at.translate(-(rectHeight - rectWidth/2), -rectWidth/2);
 
         transformedShape = at.createTransformedShape(triangle);
         verticalSegment.subtract(new Area(transformedShape));
         
         // -- Create the segment ----------
-        g2.setColor(colors[0]);       // NTS: change depending on current time
+        g2.setColor(colors[0]);
         g2.fill(verticalSegment);
         
         // == Create the lower left segment ====================================
@@ -82,7 +82,7 @@ public class CS26115_DigitalClock_Reginio {
         at.translate(0, rectHeight + segmentDist);
         transformedShape = at.createTransformedShape(verticalSegment);
         
-        g2.setColor(colors[1]);       // NTS: change depending on current time
+        g2.setColor(colors[1]);
         g2.fill(transformedShape);
         
         // == Create the upper right segment ===================================
@@ -90,7 +90,7 @@ public class CS26115_DigitalClock_Reginio {
         at.translate(rectHeight + segmentDist*2, 0);
         transformedShape = at.createTransformedShape(verticalSegment);
         
-        g2.setColor(colors[2]);       // NTS: change depending on current time
+        g2.setColor(colors[2]);
         g2.fill(transformedShape);
         
         // == Create the lower right segment ===================================
@@ -98,7 +98,7 @@ public class CS26115_DigitalClock_Reginio {
         at.translate(0, rectHeight + segmentDist);
         transformedShape = at.createTransformedShape(transformedShape);
         
-        g2.setColor(colors[3]);       // NTS: change depending on current time
+        g2.setColor(colors[3]);
         g2.fill(transformedShape);
         
         // == Create the top segment ====================
@@ -109,7 +109,7 @@ public class CS26115_DigitalClock_Reginio {
         at.translate(segmentDist, segmentDist);
         transformedShape = at.createTransformedShape(horizontalSegment);
         
-        g2.setColor(colors[4]);       // NTS: change depending on current time
+        g2.setColor(colors[4]);
         g2.fill(transformedShape);
 
         // == Create the middle segment ====================
@@ -117,7 +117,7 @@ public class CS26115_DigitalClock_Reginio {
         at.translate(0, rectHeight + segmentDist + segmentDist/2);
         transformedShape = at.createTransformedShape(transformedShape);
         
-        g2.setColor(colors[5]);       // NTS: change depending on current time
+        g2.setColor(colors[5]);
         g2.fill(transformedShape);
         
         // == Create the bottom segment ====================
@@ -125,19 +125,19 @@ public class CS26115_DigitalClock_Reginio {
         at.translate(0, rectHeight + segmentDist);
         transformedShape = at.createTransformedShape(transformedShape);
         
-        g2.setColor(colors[6]);       // NTS: change depending on current time
+        g2.setColor(colors[6]);
         g2.fill(transformedShape);
     }
     
     public void paintColon(int x) {
         // == Variables ====================
-        int y, length, dist;
+        int y, length;
         Rectangle2D.Double upperDot;
         Shape lowerDot;
         AffineTransform at;
         
         // == Create the upper dot ====================
-        y = 45;         // should be greater than rectHeight
+        y = 35;         // should be greater than rectHeight
         length = 8;     // should be same with rectWidth
         upperDot = new Rectangle2D.Double(x, y, length, length);
         
