@@ -131,6 +131,7 @@ public class CS26115_DigitalClock_Reginio {
         // == Variables ====================
         int y, length, dist;
         Rectangle2D.Double upperDot;
+        Shape lowerDot;
         AffineTransform at;
         
         // == Create the upper dot ====================
@@ -144,7 +145,7 @@ public class CS26115_DigitalClock_Reginio {
         // == Create the lower dot ====================
         at = new AffineTransform();
         at.translate(0, 25);
-        Shape lowerDot = at.createTransformedShape(upperDot);
+        lowerDot = at.createTransformedShape(upperDot);
         
         g2.setColor(Color.black);
         g2.fill(lowerDot);
