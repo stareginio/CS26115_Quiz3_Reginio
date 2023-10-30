@@ -1,7 +1,6 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.*;
 import javax.swing.*;
@@ -9,19 +8,23 @@ import javax.swing.border.*;
 
 public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements ActionListener {
     
-    private String buttonName;
-    private JPanel mainPnl, clockPnl;
-    private JSpinner hrSpn, minSpn, secSpn;
-    private JButton startBtn;
-    private int[] inputTime = { 0 ,0, 0 };
-    private long startTime = System.currentTimeMillis();
-    private boolean isRunning = false;
+    private final String buttonName;
+    private final JPanel mainPnl;
+    private final JSpinner hrSpn, minSpn, secSpn;
+    private final JButton startBtn;
+    private final int maxHr;
+    private JPanel clockPnl;
     private javax.swing.Timer timer;
+    private int[] inputTime = { 0 ,0, 0 };
+    private long startTime, endTime;
+    private boolean isRunning = false;
     
     public CS26115_DgtlAnlgClockInterface_Reginio(String buttonName) {
         setTitle("CS26115_Countup_Reginio");
         
         this.buttonName = buttonName;
+        maxHr = buttonName.equals("clock") ? 23 : 99;
+        
         mainPnl = new JPanel();
         JPanel namePnl = new JPanel();
         JPanel spinnerPnl = new JPanel();
@@ -33,10 +36,10 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         mainPnl.setLayout(new GridBagLayout());
         
         // for debugging
-        mainPnl.setBackground(Color.pink);
-        namePnl.setBackground(Color.green);
-        spinnerPnl.setBackground(Color.lightGray);
-        buttonPnl.setBackground(Color.blue);
+//        mainPnl.setBackground(Color.pink);
+//        namePnl.setBackground(Color.green);
+//        spinnerPnl.setBackground(Color.lightGray);
+//        buttonPnl.setBackground(Color.blue);
         
         // == Name Panel ==============================
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -70,20 +73,20 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         
         // -- create spinners ----------
         // start value, minimum value, maximum value, step value
-        SpinnerModel spnModel = new SpinnerNumberModel(0,0,99,1);
+        SpinnerModel spnModel = new SpinnerNumberModel(0,0,maxHr,1);
         hrSpn = new JSpinner(spnModel);
-        JFormattedTextField ftf =
-                ((JSpinner.NumberEditor) hrSpn.getEditor()).getTextField();
+//        JFormattedTextField ftf =
+//                ((JSpinner.NumberEditor) hrSpn.getEditor()).getTextField();
 //        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         spnModel = new SpinnerNumberModel(0,0,59,1);
         minSpn = new JSpinner(spnModel);
-        ftf = ((JSpinner.NumberEditor) minSpn.getEditor()).getTextField();
+//        ftf = ((JSpinner.NumberEditor) minSpn.getEditor()).getTextField();
 //        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         spnModel = new SpinnerNumberModel(0,0,59,1);
         secSpn = new JSpinner(spnModel);
-        ftf =((JSpinner.NumberEditor) secSpn.getEditor()).getTextField();
+//        ftf =((JSpinner.NumberEditor) secSpn.getEditor()).getTextField();
 //        ((NumberFormatter) ftf.getFormatter()).setAllowsInvalid(false);
         
         // -- apply zero-padding ----------
@@ -126,7 +129,8 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         
         // -- create start button ----------
         startBtn = new JButton("Start");
-        startBtn.addActionListener(this);
+        
+        addActionListeners();
         
         // -- add components to spinner panel ----------
         buttonPnl.add(startBtn);
@@ -154,7 +158,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         }
         
         // == Create new clock panel ==============================
-        clockPnl = new CS26115_ClockPanel_Reginio(buttonName, hr, min, sec);
+        clockPnl = new CS26115_ClockPanel_Reginio(hr, min, sec);
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -225,9 +229,9 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
             if (Arrays.equals(inputTime, new int[] { 0,0,0 })) {
                 JOptionPane.showMessageDialog(
                         null,
-                        """
-                        Please provide valid values for the hours (00 to 99),
-                        minutes (00 to 59), and seconds (00 to 59).""",
+                        "Please provide valid values for the hours (00 to "
+                                + maxHr + "), minutes (00 to 59),"
+                                + " and seconds (00 to 59).",
                         "Error Message",
                         JOptionPane.ERROR_MESSAGE
                 );
@@ -243,7 +247,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
                 // Create timer
                 timer = new javax.swing.Timer(1000, this);
                 timer.setRepeats(true);
-                timer.setInitialDelay(0);
+                timer.setInitialDelay(1);
                 
                 // Get start time
                 if (buttonName.equals("countup")) {
@@ -265,12 +269,18 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         long milliTime = System.currentTimeMillis() - startTime;
         
         if (buttonName.equals("countdown")) {
-            milliTime = startTime - (System.currentTimeMillis() - startTime);
+//            milliTime = startTime - (System.currentTimeMillis() - startTime);
+            milliTime = endTime - System.currentTimeMillis();
         }
         
         time[0] = (int)(milliTime / 3600000);
         time[1] = (int)(milliTime / 60000) % 60;
         time[2] = (int)(milliTime / 1000) % 60;
+        
+        // Reset display to 00:00:00 when time reaches 24:00:00
+        if (buttonName.equals("clock") && time[0] >= 24) {
+            time[0] = (int) (time[0] - 24 * Math.floor(time[0]/24));
+        }
         
         return time;
     }
@@ -280,16 +290,16 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         time += TimeUnit.MINUTES.toMillis(inputTime[1]);
         time += TimeUnit.SECONDS.toMillis(inputTime[2]);
         
-        System.out.println("-- getStartTimeMillis() -----");
-        System.out.println("timeinMillis before subtracting: " + time);
-        System.out.println("hour: " + TimeUnit.HOURS.toMillis(inputTime[0]));
-        System.out.println("min: " + TimeUnit.MINUTES.toMillis(inputTime[1]));
-        System.out.println("sec: " + TimeUnit.SECONDS.toMillis(inputTime[2]));
-        
+        if (buttonName.equals("countdown")) {
+            // add 1000 for 1 second delay
+            endTime = System.currentTimeMillis() + time + 1000;
+        }
         time = System.currentTimeMillis() - time;
         
-        System.out.println("timeinMillis after subtracting: " + time);
-        
         return time;
+    }
+    
+    private void addActionListeners() {
+        startBtn.addActionListener(this);
     }
 }
