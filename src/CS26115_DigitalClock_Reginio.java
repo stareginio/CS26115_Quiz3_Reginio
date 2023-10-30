@@ -16,6 +16,10 @@ public class CS26115_DigitalClock_Reginio {
         int[] triangleY;
         int rectWidth, rectHeight, segmentDist;
         Area verticalSegment, horizontalSegment;
+        Shape transformedShape;
+        Polygon triangle;
+        Rectangle2D.Double rect;
+        AffineTransform at;
         
         // == Create the upper left segment ====================
         int y = 30;
@@ -24,7 +28,7 @@ public class CS26115_DigitalClock_Reginio {
         segmentDist = 2;
         
         // -- Create the base shape ----------        
-        Rectangle2D.Double rect = new Rectangle2D.Double(
+        rect = new Rectangle2D.Double(
                 x, y, rectWidth, rectHeight
         );
         
@@ -33,18 +37,18 @@ public class CS26115_DigitalClock_Reginio {
         // -- Subtract the upper left corner ----------
         triangleX = new int[] { x, x, (x + rectWidth/2) };
         triangleY = new int[] { (y + rectWidth/2), y, y };
-        Polygon triangle = new Polygon(triangleX, triangleY, 3);
+        triangle = new Polygon(triangleX, triangleY, 3);
         
         verticalSegment.subtract(new Area(triangle));
         
         // -- Subtract the upper right corner ----------
         triangle = new Polygon(triangleX, triangleY, 3);
         
-        AffineTransform at = new AffineTransform();
+        at = new AffineTransform();
         at.rotate(Math.toRadians(90), (x + rectWidth/2), ((y+rectHeight)/2));
         at.translate(rectWidth/2, -rectWidth/2);
         
-        Shape transformedShape = at.createTransformedShape(triangle);
+        transformedShape = at.createTransformedShape(triangle);
         verticalSegment.subtract(new Area(transformedShape));
         
         // -- Subtract the bottom right corner ----------
@@ -127,6 +131,7 @@ public class CS26115_DigitalClock_Reginio {
         // == Variables ====================
         int y, length, dist;
         Rectangle2D.Double upperDot;
+        AffineTransform at;
         
         // == Create the upper dot ====================
         y = 45;         // should be greater than rectHeight
@@ -137,7 +142,7 @@ public class CS26115_DigitalClock_Reginio {
         g2.fill(upperDot);
         
         // == Create the lower dot ====================
-        AffineTransform at = new AffineTransform();
+        at = new AffineTransform();
         at.translate(0, 25);
         Shape lowerDot = at.createTransformedShape(upperDot);
         
