@@ -57,7 +57,8 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         CS26115_AnalogClock_Reginio ac = new CS26115_AnalogClock_Reginio(g2);
         
         ac.paintBase(getWidth(), getHeight(), digitWidth, dist);
-        // NTS: call method/s here to create the hands
+        ac.paintHands(getWidth());
+        ac.paintRedCircle(getWidth(), getHeight(), digitWidth, dist);
     }
     
     public Color[] getSegmentColors(int time, String digit) {
