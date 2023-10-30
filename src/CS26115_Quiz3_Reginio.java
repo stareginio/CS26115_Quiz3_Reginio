@@ -110,6 +110,8 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
         }
         else if (e.getSource() == intlBtn) {
             System.out.println("Button 4 was pressed");
+            new CS26115_IntlInterface_Reginio();
+            setVisible(false);
         }
     }
     
