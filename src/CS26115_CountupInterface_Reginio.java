@@ -1,6 +1,7 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -13,6 +14,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
     private int[] inputTime = { 0 ,0, 0 };
     private long startTime = System.currentTimeMillis();
     private boolean isRunning = false;
+    private ArrayList<Timer> timerList = new ArrayList();
     
     public CS26115_CountupInterface_Reginio() {
         setTitle("CS26115_Countup_Reginio");
@@ -143,11 +145,12 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
     }
     
     public void getClockPanel(int hr, int min, int sec) {
-        // remove previous clock panel if exists
+        // == Remove previous clock panel if exists ============================
         if (clockPnl != null) {
             mainPnl.remove(clockPnl);
         }
         
+        // == Create new clock panel ==============================
         clockPnl = new CS26115_ClockPanel_Reginio(hr, min, sec);
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -165,10 +168,8 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) { 
-        Timer timer;
-        
-        // Check if countup is running
+    public void actionPerformed(ActionEvent e) {       
+        // == Check if countup is running ==============================
         if (isRunning) {
             int[] currentTime = getTime();
             
@@ -190,8 +191,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
             // Check if countup should be finished
             if (Arrays.equals(getTime(), inputTime)) {
                 System.out.println("-- STOP -----");
-//                timer.stop();
-                ((Timer) e.getSource()).stop();
+                timerList.get(0).stop();
                 isRunning = false;
                 
                 Border stopBorder = BorderFactory.createLineBorder(Color.red, 6);
@@ -200,8 +200,8 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
             }
         }
         
-        // Check if start button is clicked
-        if (e.getSource() == startBtn) {            
+        // == Check if start button is clicked ==============================
+        if (e.getSource() == startBtn) {    
             int hr = (Integer) hrSpn.getValue();
             int min = (Integer) minSpn.getValue();
             int sec = (Integer) secSpn.getValue();
@@ -227,15 +227,22 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
                 // Reset clocks
                 getClockPanel(0,0,0);
             } else {
+                // Check for previous timer if exists
+                if (!timerList.isEmpty()) {
+                    timerList.get(0).stop();
+                    timerList.remove(0);
+                }
+                
                 // Create timer
-                timer = new Timer(1000, this);
+                Timer timer = new Timer(1000, this);
                 timer.setRepeats(true);
                 timer.setInitialDelay(1);
+                timerList.add(timer);
                 
                 // Start timer
                 System.out.println("-- START -----");
-                isRunning = true;
                 startTime = System.currentTimeMillis();
+                isRunning = true;
                 timer.start();
             }
         }
