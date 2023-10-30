@@ -14,12 +14,12 @@ public class CS26115_AnalogClock_Reginio {
     public void paintBase(int panelWidth, int panelHeight,
             int digitWidth, int dist) {
         // == Variables ==========
-        int outerRadius, innerRadius, middleRadius,
+        int outerRadius, innerRadius,
                 circleCenterX, circleCenterY,
                 hourMarkWidth, hourMarkHeight,
                 minuteMarkWidth, minuteMarkHeight,
                 timeMarkDist;
-        Area analogClockBase, analogClockMiddle, timeMarks;
+        Area analogClockBase, timeMarks;
         Ellipse2D.Double circle;
         Rectangle2D.Double hourMark, minuteMark;
         Shape transformedShape;
@@ -30,13 +30,13 @@ public class CS26115_AnalogClock_Reginio {
         circleCenterX = panelWidth/2 - outerRadius/2;
         circleCenterY = panelHeight/2 - outerRadius/2 + digitWidth + dist;
         
-        // -- Black circle ----------
+        // -- black circle ----------
         circle = new Ellipse2D.Double(
                 circleCenterX, circleCenterY, outerRadius, outerRadius
         );
         analogClockBase = new Area(circle);
         
-        // -- White circle ----------
+        // -- white circle ----------
         innerRadius = outerRadius - dist*4;
         circle = new Ellipse2D.Double(
                 circleCenterX + dist*2,
@@ -64,7 +64,7 @@ public class CS26115_AnalogClock_Reginio {
         );
         timeMarks = new Area(hourMark);
         
-        // -- Minute mark ----------
+        // -- minute mark ----------
         // 1st mark
         minuteMark = new Rectangle2D.Double(
                 panelWidth/2 - hourMarkWidth/2,
@@ -164,7 +164,7 @@ public class CS26115_AnalogClock_Reginio {
         tailWidth = 5;
         tailHeight = handHeight/5;
         
-        // hand
+        // -- hand ----------
         rect = new Rectangle2D.Double(
                 timeMarkX - handWidth/2,
                 timeMarkY - handHeight * 9/11 + 5,
@@ -173,7 +173,7 @@ public class CS26115_AnalogClock_Reginio {
         
         secondHand = new Area(rect);
         
-        // tail
+        // -- tail ----------
         rect = new Rectangle2D.Double(
                 timeMarkX - tailWidth/2,
                 timeMarkY + handHeight/13,
@@ -182,7 +182,7 @@ public class CS26115_AnalogClock_Reginio {
         
         secondHand.add(new Area(rect));
         
-        // rotation
+        // -- rotation ----------
         at = new AffineTransform();
         at.rotate(Math.toRadians(sec*6), timeMarkX, timeMarkY);
         
