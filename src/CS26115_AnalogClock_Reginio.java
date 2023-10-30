@@ -73,22 +73,22 @@ public class CS26115_AnalogClock_Reginio {
         );
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(6), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
         // 2nd mark
-        at.rotate(Math.toRadians(6), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
         // 3rd mark
-        at.rotate(Math.toRadians(6), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
         // 4th mark
-        at.rotate(Math.toRadians(6), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
@@ -129,6 +129,12 @@ public class CS26115_AnalogClock_Reginio {
         );
         hourHand = new Area(rect);
         
+        at = new AffineTransform();
+        at.rotate(Math.toRadians(hr*30 + Math.ceil(min/2)), timeMarkX, timeMarkY);
+        
+        transformedShape = at.createTransformedShape(hourHand);        
+        hourHand = new Area(transformedShape);
+        
         g2.setColor(Color.black);
         g2.fill(hourHand);
         
@@ -142,6 +148,12 @@ public class CS26115_AnalogClock_Reginio {
                 handWidth, handHeight
         );
         minuteHand = new Area(rect);
+        
+        at = new AffineTransform();
+        at.rotate(Math.toRadians(min*6 + Math.ceil(sec/10)), timeMarkX, timeMarkY);
+        
+        transformedShape = at.createTransformedShape(minuteHand);        
+        minuteHand = new Area(transformedShape);
         
         g2.setColor(Color.black);
         g2.fill(minuteHand);
@@ -169,6 +181,13 @@ public class CS26115_AnalogClock_Reginio {
         );
         
         secondHand.add(new Area(rect));
+        
+        // rotation
+        at = new AffineTransform();
+        at.rotate(Math.toRadians(sec*6), timeMarkX, timeMarkY);
+        
+        transformedShape = at.createTransformedShape(secondHand);        
+        secondHand = new Area(transformedShape);
         
         g2.setColor(Color.red);
         g2.fill(secondHand);
