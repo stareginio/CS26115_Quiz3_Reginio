@@ -4,12 +4,10 @@ import javax.swing.*;
 
 public class CS26115_ClockPanel_Reginio extends JPanel {
     
-    private String buttonName;
-    private int hr, min, sec;
+    private final int hr, min, sec;
     
     // Constructor
-    CS26115_ClockPanel_Reginio(String buttonName, int hr, int min, int sec) {
-        this.buttonName = buttonName;
+    CS26115_ClockPanel_Reginio(int hr, int min, int sec) {
         this.hr = hr;
         this.min = min;
         this.sec = sec;
