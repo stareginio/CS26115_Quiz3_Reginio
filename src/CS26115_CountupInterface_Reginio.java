@@ -28,10 +28,10 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         mainPnl.setLayout(new GridBagLayout());
         
         // for debugging
-        mainPnl.setBackground(Color.pink);
-        namePnl.setBackground(Color.green);
-        spinnerPnl.setBackground(Color.lightGray);
-        buttonPnl.setBackground(Color.blue);
+//        mainPnl.setBackground(Color.pink);
+//        namePnl.setBackground(Color.green);
+//        spinnerPnl.setBackground(Color.lightGray);
+//        buttonPnl.setBackground(Color.blue);
         
         // == Name Panel ==============================
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
