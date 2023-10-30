@@ -23,10 +23,10 @@ public class CS26115_ClockPanel_Reginio extends JPanel {
         int startingPoint, digitWidth, colonLength, dist;
         
         // == Digital clock ==========
-        startingPoint = 25;
         digitWidth = 42;
         colonLength = 8;
         dist = 6;           // distance between digits and colons
+        startingPoint = (getWidth() - (digitWidth*6 + colonLength*2 + dist*7)) / 2;
         CS26115_DigitalClock_Reginio dc =
                 new CS26115_DigitalClock_Reginio(g2);
         
