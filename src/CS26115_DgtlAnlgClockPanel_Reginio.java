@@ -22,7 +22,7 @@ public class CS26115_DgtlAnlgClockPanel_Reginio extends JPanel {
         int startingPoint, digitWidth, colonLength, dist;
         
         // == Digital clock ==========
-        digitWidth = 42;
+        digitWidth = 38;
         colonLength = 8;
         dist = 6;           // distance between digits and colons
         startingPoint = (getWidth() - (digitWidth*6 + colonLength*2 + dist*7)) / 2;
