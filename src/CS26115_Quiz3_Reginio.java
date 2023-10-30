@@ -93,21 +93,27 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         // Start the program
-        CS26115_Quiz3_Reginio quizThree = new CS26115_Quiz3_Reginio();
+        new CS26115_Quiz3_Reginio();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clockBtn) {
             System.out.println("Clock Button was pressed");
+            CS26115_DgtlAnlgClockInterface_Reginio countup =
+                    new CS26115_DgtlAnlgClockInterface_Reginio("clock");
+            setVisible(false);
         }
         else if (e.getSource() == countdownBtn) {
             System.out.println("Countdown Button was pressed");
+            CS26115_DgtlAnlgClockInterface_Reginio countup =
+                    new CS26115_DgtlAnlgClockInterface_Reginio("countdown");
+            setVisible(false);
         }
         else if (e.getSource() == countupBtn) {
             System.out.println("Countup Button was pressed");
-            CS26115_CountupInterface_Reginio countup =
-                    new CS26115_CountupInterface_Reginio();
+            CS26115_DgtlAnlgClockInterface_Reginio countup =
+                    new CS26115_DgtlAnlgClockInterface_Reginio("countup");
             setVisible(false);
         }
         else if (e.getSource() == intlBtn) {
@@ -121,3 +127,4 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
 // https://stackoverflow.com/questions/9526041/how-to-program-for-a-stopwatch
 // https://stackoverflow.com/questions/19727449/java-how-to-update-a-panel-every-second
 // https://stackoverflow.com/questions/3858920/stop-a-swing-timer-from-inside-the-action-listener
+// https://stackoverflow.com/questions/6980376/convert-from-days-to-milliseconds
