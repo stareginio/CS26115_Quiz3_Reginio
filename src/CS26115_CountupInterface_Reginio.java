@@ -36,7 +36,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         // == Name Panel ==============================
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         namePnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        namePnl.setBorder(new EmptyBorder(5,30,5,30));
+        namePnl.setBorder(new EmptyBorder(0,30,10,30));
         
         // -- create name label ----------
         JLabel nameLbl = new JLabel("COUNTUP");
