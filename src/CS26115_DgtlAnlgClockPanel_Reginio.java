@@ -2,12 +2,12 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class CS26115_ClockPanel_Reginio extends JPanel {
+public class CS26115_DgtlAnlgClockPanel_Reginio extends JPanel {
     
     private final int hr, min, sec;
     
     // Constructor
-    CS26115_ClockPanel_Reginio(int hr, int min, int sec) {
+    CS26115_DgtlAnlgClockPanel_Reginio(int hr, int min, int sec) {
         this.hr = hr;
         this.min = min;
         this.sec = sec;
