@@ -10,7 +10,7 @@ public class CS26115_DigitalClock_Reginio {
         this.g2 = g2;
     }
     
-    public void drawDigit(int x, Color[] colors) {
+    public void paintDigit(int x, Color[] colors) {
         // == Variables ====================
         int[] triangleX;
         int[] triangleY;
@@ -123,7 +123,7 @@ public class CS26115_DigitalClock_Reginio {
         g2.fill(transformedShape);
     }
     
-    public void drawColon(int x) {
+    public void paintColon(int x) {
         // == Variables ====================
         int y, length, dist;
         Rectangle2D.Double upperDot;
