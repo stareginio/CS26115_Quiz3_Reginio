@@ -65,7 +65,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
         
         // -- create spinners ----------
         // start value, minimum value, maximum value, step value
-        SpinnerModel spnModel = new SpinnerNumberModel(0,0,11,1);
+        SpinnerModel spnModel = new SpinnerNumberModel(0,0,99,1);
         hrSpn = new JSpinner(spnModel);
         JFormattedTextField ftf =
                 ((JSpinner.NumberEditor) hrSpn.getEditor()).getTextField();
@@ -194,7 +194,6 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
                 ((Timer) e.getSource()).stop();
                 isRunning = false;
                 
-//                20,30,20,30
                 Border stopBorder = BorderFactory.createLineBorder(Color.red, 6);
                 clockPnl.setPreferredSize(new Dimension(60,420));
                 clockPnl.setBorder(stopBorder);
@@ -219,7 +218,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
                 JOptionPane.showMessageDialog(
                         null,
                         """
-                        Please provide valid values for the hours (00 to 11),
+                        Please provide valid values for the hours (00 to 99),
                         minutes (00 to 59), and seconds (00 to 59).""",
                         "Error Message",
                         JOptionPane.ERROR_MESSAGE
