@@ -14,7 +14,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
     private int[] inputTime = { 0 ,0, 0 };
     private long startTime = System.currentTimeMillis();
     private boolean isRunning = false;
-    private ArrayList<Timer> timerList = new ArrayList();
+    private Timer timer;
     
     public CS26115_CountupInterface_Reginio() {
         setTitle("CS26115_Countup_Reginio");
@@ -191,7 +191,7 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
             // Check if countup should be finished
             if (Arrays.equals(getTime(), inputTime)) {
                 System.out.println("-- STOP -----");
-                timerList.get(0).stop();
+                timer.stop();
                 isRunning = false;
                 
                 Border stopBorder = BorderFactory.createLineBorder(Color.red, 6);
@@ -228,16 +228,14 @@ public class CS26115_CountupInterface_Reginio extends JFrame implements ActionLi
                 getClockPanel(0,0,0);
             } else {
                 // Check for previous timer if exists
-                if (!timerList.isEmpty()) {
-                    timerList.get(0).stop();
-                    timerList.remove(0);
+                if (timer != null) {
+                    timer.stop();
                 }
                 
                 // Create timer
-                Timer timer = new Timer(1000, this);
+                timer = new Timer(1000, this);
                 timer.setRepeats(true);
                 timer.setInitialDelay(1);
-                timerList.add(timer);
                 
                 // Start timer
                 System.out.println("-- START -----");
