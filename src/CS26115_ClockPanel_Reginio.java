@@ -1,6 +1,5 @@
 
 import java.awt.*;
-import java.awt.geom.*;
 import javax.swing.*;
 
 public class CS26115_ClockPanel_Reginio extends JPanel {
