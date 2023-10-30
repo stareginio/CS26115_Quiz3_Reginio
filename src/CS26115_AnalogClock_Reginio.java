@@ -110,24 +110,22 @@ public class CS26115_AnalogClock_Reginio {
         g2.fill(analogClockBase);
     }
     
-    public void paintHands(int panelWidth) {
+    public void paintHands(int panelWidth, int hr, int min, int sec) {
         // == Variables ==========
-        int hourHandWidth, hourHandHeight,
-                minuteHandWidth, minuteHandHeight,
-                secondHandWidth, secondHandHeight;
+        int handWidth, handHeight, tailWidth, tailHeight;
         Area hourHand, minuteHand, secondHand;
         Rectangle2D.Double rect;
         Shape transformedShape;
         AffineTransform at;
         
         // == Hour hand ==========
-        hourHandWidth = 11;
-        hourHandHeight = panelWidth/4;
+        handWidth = 13;
+        handHeight = panelWidth/4;
         
         rect = new Rectangle2D.Double(
-                timeMarkX - hourHandWidth/2,
-                timeMarkY - hourHandHeight * 3/4,
-                hourHandWidth, hourHandHeight
+                timeMarkX - handWidth/2,
+                timeMarkY - handHeight * 3/4,
+                handWidth, handHeight
         );
         hourHand = new Area(rect);
         
@@ -135,18 +133,45 @@ public class CS26115_AnalogClock_Reginio {
         g2.fill(hourHand);
         
         // == Minute hand ==========
-        minuteHandWidth = 7;
-        minuteHandHeight = panelWidth*4/11;
+        handWidth = 7;
+        handHeight = panelWidth*4/11;
         
         rect = new Rectangle2D.Double(
-                timeMarkX - minuteHandWidth/2,
-                timeMarkY - minuteHandHeight * 9/11 - 1,
-                minuteHandWidth, minuteHandHeight
+                timeMarkX - handWidth/2,
+                timeMarkY - handHeight * 9/11 - 1,
+                handWidth, handHeight
         );
         minuteHand = new Area(rect);
         
         g2.setColor(Color.black);
         g2.fill(minuteHand);
+
+        // == Second hand ==========
+        handWidth = 1;
+        handHeight = panelWidth*4/11;
+        tailWidth = 5;
+        tailHeight = handHeight/5;
+        
+        // hand
+        rect = new Rectangle2D.Double(
+                timeMarkX - handWidth/2,
+                timeMarkY - handHeight * 9/11 + 5,
+                handWidth, handHeight
+        );
+        
+        secondHand = new Area(rect);
+        
+        // tail
+        rect = new Rectangle2D.Double(
+                timeMarkX - tailWidth/2,
+                timeMarkY + handHeight/13,
+                tailWidth, tailHeight
+        );
+        
+        secondHand.add(new Area(rect));
+        
+        g2.setColor(Color.red);
+        g2.fill(secondHand);
     }
     
     public void paintRedCircle(int panelWidth, int panelHeight,
