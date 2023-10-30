@@ -158,7 +158,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         }
         
         // == Create new clock panel ==============================
-        clockPnl = new CS26115_ClockPanel_Reginio(hr, min, sec);
+        clockPnl = new CS26115_DgtlAnlgClockPanel_Reginio(hr, min, sec);
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
