@@ -57,16 +57,11 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
         intlBtn = new JButton("International");
         
         clockBtn.setFocusPainted(false);
-        clockBtn.addActionListener(this);
-        
-        countdownBtn.setFocusPainted(false);
-        countdownBtn.addActionListener(this);
-        
-        countupBtn.setFocusPainted(false);
-        countupBtn.addActionListener(this);
-        
+        countdownBtn.setFocusPainted(false);        
+        countupBtn.setFocusPainted(false);        
         intlBtn.setFocusPainted(false);
-        intlBtn.addActionListener(this);
+        
+        addActionListeners();
         
         // -- add components to button panel ----------
         buttonPnl.add(clockBtn);
@@ -100,25 +95,29 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clockBtn) {
             System.out.println("Clock Button was pressed");
-            CS26115_DgtlAnlgClockInterface_Reginio countup =
-                    new CS26115_DgtlAnlgClockInterface_Reginio("clock");
+            new CS26115_DgtlAnlgClockInterface_Reginio("clock");
             setVisible(false);
         }
         else if (e.getSource() == countdownBtn) {
             System.out.println("Countdown Button was pressed");
-            CS26115_DgtlAnlgClockInterface_Reginio countup =
-                    new CS26115_DgtlAnlgClockInterface_Reginio("countdown");
+            new CS26115_DgtlAnlgClockInterface_Reginio("countdown");
             setVisible(false);
         }
         else if (e.getSource() == countupBtn) {
             System.out.println("Countup Button was pressed");
-            CS26115_DgtlAnlgClockInterface_Reginio countup =
-                    new CS26115_DgtlAnlgClockInterface_Reginio("countup");
+            new CS26115_DgtlAnlgClockInterface_Reginio("countup");
             setVisible(false);
         }
         else if (e.getSource() == intlBtn) {
             System.out.println("Button 4 was pressed");
         }
+    }
+    
+    private void addActionListeners() {
+        clockBtn.addActionListener(this);
+        countdownBtn.addActionListener(this);
+        countupBtn.addActionListener(this);
+        intlBtn.addActionListener(this);
     }
 }
 
@@ -128,3 +127,4 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
 // https://stackoverflow.com/questions/19727449/java-how-to-update-a-panel-every-second
 // https://stackoverflow.com/questions/3858920/stop-a-swing-timer-from-inside-the-action-listener
 // https://stackoverflow.com/questions/6980376/convert-from-days-to-milliseconds
+// https://www.javaprogrammingforums.com/loops-control-statements/28948-making-countdown-timer-using-currenttimemillis-method.html
