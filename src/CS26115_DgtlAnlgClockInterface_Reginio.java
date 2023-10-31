@@ -160,7 +160,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        clockPnl.setPreferredSize(new Dimension(0,420));
+        clockPnl.setPreferredSize(new Dimension(0,430));
         
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.HORIZONTAL;
@@ -211,7 +211,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame
                 
                 Border stopBorder =
                         BorderFactory.createLineBorder(Color.red, 6);
-                clockPnl.setPreferredSize(new Dimension(60,420));
+                clockPnl.setPreferredSize(new Dimension(60,430));
                 clockPnl.setBorder(stopBorder);
             }
         }
