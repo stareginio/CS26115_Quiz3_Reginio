@@ -61,7 +61,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
         // == Frame ==============================
         add(mainPnl);
         
-        setSize(800, 820);
+        setSize(720, 700);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
