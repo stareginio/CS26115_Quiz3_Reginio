@@ -47,7 +47,11 @@ public class CS26115_DigitalClock_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(90), (x + rectWidth/2), ((y + rectHeight)/2));
+        at.rotate(
+                Math.toRadians(90),
+                (x + rectWidth/2),
+                ((y + rectHeight)/2)
+        );
         at.translate(rectWidth/2, -rectWidth/2);
         
         transformedShape = at.createTransformedShape(triangle);
@@ -57,7 +61,11 @@ public class CS26115_DigitalClock_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(180), (x + rectWidth/2), ((y + rectHeight)/2));
+        at.rotate(
+                Math.toRadians(180),
+                (x + rectWidth/2),
+                ((y + rectHeight)/2)
+        );
         at.translate(0, -rectHeight);
 
         transformedShape = at.createTransformedShape(triangle);
@@ -67,7 +75,11 @@ public class CS26115_DigitalClock_Reginio {
         triangle = new Polygon(triangleX, triangleY, 3);
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(270), (x + rectWidth/2), ((y + rectHeight)/2));
+        at.rotate(
+                Math.toRadians(270),
+                (x + rectWidth/2),
+                ((y + rectHeight)/2)
+        );
         at.translate(-(rectHeight - rectWidth/2), -rectWidth/2);
 
         transformedShape = at.createTransformedShape(triangle);
@@ -163,7 +175,7 @@ public class CS26115_DigitalClock_Reginio {
             digit = Integer.toString(time % 10);
         }
         
-//        System.out.println("getSegmentColors() ---- digit: " + digit);
+//        System.out.println("-- getSegmentColors() ----\ndigit: " + digit);
         
         // == Get the colors for the digit ==========
         switch (digit) {

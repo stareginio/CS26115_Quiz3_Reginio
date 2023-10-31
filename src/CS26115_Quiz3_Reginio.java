@@ -94,22 +94,22 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clockBtn) {
-            System.out.println("Clock Button was pressed");
+//            System.out.println("Clock Button was pressed");
             new CS26115_DgtlAnlgClockInterface_Reginio("clock");
             setVisible(false);
         }
         else if (e.getSource() == countdownBtn) {
-            System.out.println("Countdown Button was pressed");
+//            System.out.println("Countdown Button was pressed");
             new CS26115_DgtlAnlgClockInterface_Reginio("countdown");
             setVisible(false);
         }
         else if (e.getSource() == countupBtn) {
-            System.out.println("Countup Button was pressed");
+//            System.out.println("Countup Button was pressed");
             new CS26115_DgtlAnlgClockInterface_Reginio("countup");
             setVisible(false);
         }
         else if (e.getSource() == intlBtn) {
-            System.out.println("Button 4 was pressed");
+//            System.out.println("International Button was pressed");
             new CS26115_IntlInterface_Reginio();
             setVisible(false);
         }

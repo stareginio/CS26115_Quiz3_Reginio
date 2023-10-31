@@ -19,9 +19,9 @@ public class CS26115_Time_Reginio {
         for (int i=0; i < clockNames.length; i++) {
             timeZones[i] = getTimeZones(clockNames[i]);
             
-            System.out.println("timeZones[" + i + "]: " + timeZones[i][0]
-                                    + ":" + timeZones[i][1]
-                                    + ":" + timeZones[i][2]);
+//            System.out.println(clockNames[i] + ": " + timeZones[i][0]
+//                                    + ":" + timeZones[i][1]
+//                                    + ":" + timeZones[i][2]);
         }
     }
     
@@ -81,16 +81,10 @@ public class CS26115_Time_Reginio {
         df.setTimeZone(TimeZone.getTimeZone(timeZoneId));
         String[] timeArr = df.format(date).split(":");
         
-        System.out.println("timeArr for " + name + ": " + timeArr[0]
-                + ":" + timeArr[1]
-                + ":" + timeArr[2]
-        );
-        
-//        timeZone = TimeUnit.HOURS.toMillis(Long.parseLong(timeArr[0]));
-//        timeZone += TimeUnit.MINUTES.toMillis(Long.parseLong(timeArr[1]));
-//        timeZone += TimeUnit.SECONDS.toMillis(Long.parseLong(timeArr[2]));
-        
-//        time = System.currentTimeMillis() - time;
+//        System.out.println("timeArr for " + name + ": " + timeArr[0]
+//                + ":" + timeArr[1]
+//                + ":" + timeArr[2]
+//        );
         
         return new int[] {
             Integer.parseInt(timeArr[0]),
@@ -110,9 +104,9 @@ public class CS26115_Time_Reginio {
             default -> { }
         }
         
-        System.out.println("timeZone[0]: " + timeZone[0]);
-        System.out.println("timeZone[1]: " + timeZone[1]);
-        System.out.println("timeZone[2]: " + timeZone[2]);
+//        System.out.println("timeZone[0]: " + timeZone[0]);
+//        System.out.println("timeZone[1]: " + timeZone[1]);
+//        System.out.println("timeZone[2]: " + timeZone[2]);
         
         return timeZone;
     }

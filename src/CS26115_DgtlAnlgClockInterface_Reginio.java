@@ -5,7 +5,8 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements ActionListener {
+public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame
+        implements ActionListener {
     
     private final String buttonName;
     private final JPanel mainPnl;
@@ -22,8 +23,12 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         this.buttonName = buttonName;
         maxHr = buttonName.equals("clock") ? 23 : 99;
         
-        setTitle("CS26115_" + buttonName.substring(0,1).toUpperCase()
-                + buttonName.substring(1).toLowerCase() + "_Reginio");
+        setTitle(
+                "CS26115_"
+                    + buttonName.substring(0,1).toUpperCase()
+                    + buttonName.substring(1).toLowerCase()
+                    + "_Reginio"
+        );
         
         mainPnl = new JPanel();
         JPanel namePnl = new JPanel();
@@ -73,7 +78,8 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         
         // -- create spinners ----------
         // start value, minimum value, maximum value, step value
-        SpinnerModel spnModel = new SpinnerNumberModel(0,0,maxHr,1);
+        SpinnerModel spnModel =
+                new SpinnerNumberModel(0,0,maxHr,1);
         hrSpn = new JSpinner(spnModel);
         
         spnModel = new SpinnerNumberModel(0,0,59,1);
@@ -121,7 +127,8 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         // -- create start button ----------
         startBtn = new JButton("Start");
         
-        addActionListeners();
+        // -- add an action listener to the button ----------
+        addActionListener();
         
         // -- add components to spinner panel ----------
         buttonPnl.add(startBtn);
@@ -202,7 +209,8 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
                 timer.stop();
                 isRunning = false;
                 
-                Border stopBorder = BorderFactory.createLineBorder(Color.red, 6);
+                Border stopBorder =
+                        BorderFactory.createLineBorder(Color.red, 6);
                 clockPnl.setPreferredSize(new Dimension(60,400));
                 clockPnl.setBorder(stopBorder);
             }
@@ -264,7 +272,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
         }
     }
     
-    private void addActionListeners() {
+    private void addActionListener() {
         startBtn.addActionListener(this);
     }
 }

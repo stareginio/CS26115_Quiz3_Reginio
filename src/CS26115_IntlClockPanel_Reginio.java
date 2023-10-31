@@ -1,16 +1,13 @@
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.*;
 
 public class CS26115_IntlClockPanel_Reginio extends JPanel {
     
-    private final String name;
     private final int[] time;
     
     // Constructor
     public CS26115_IntlClockPanel_Reginio(String name, int[] time) {
-        this.name = name;
         this.time = time;
     }
     
