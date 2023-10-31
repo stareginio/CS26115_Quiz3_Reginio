@@ -10,6 +10,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
     private final javax.swing.Timer timer;
     private final String[] clockNames;
     private JPanel[] clockPanels;
+    private JLabel[] clockLabels;
     
     public CS26115_IntlInterface_Reginio() {
         setTitle("CS26115_International_Reginio");
@@ -71,7 +72,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
         JLabel clockLbl;
         CS26115_Time_Reginio t = new CS26115_Time_Reginio(clockNames);
         
-        // == Create the clock panels ==============================
+        // == Create the clock panels and labels ==============================
         if (clockPanels != null) {
             mainPnl.remove(clockPanels[0]);
             mainPnl.remove(clockPanels[1]);
@@ -79,14 +80,31 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
             mainPnl.remove(clockPanels[3]);
         }
         
+        if (clockLabels != null) {
+            mainPnl.remove(clockLabels[0]);
+            mainPnl.remove(clockLabels[1]);
+            mainPnl.remove(clockLabels[2]);
+            mainPnl.remove(clockLabels[3]);
+        }
+        
         clockPanels = new JPanel[4];
+        clockLabels = new JLabel[4];
         
         for (int i=0; i < clockNames.length; i++) {
-            // -- Analog Clock ----------            
-            clockPanels[i] = new CS26115_IntlClockPanel_Reginio(
-                    clockNames[i],
-                    t.getTimeZonebyName(clockNames[i])
-            );
+            int[] time = t.getTimeZonebyName(clockNames[i]);
+            
+            // -- Analog Clock --------------------
+            clockPanels[i] =
+                    new CS26115_IntlClockPanel_Reginio(clockNames[i], time);
+            
+            System.out.print(clockNames[i]
+                                    + ": " + time[0]
+                                    + ":" + time[1]
+                                    + ":" + time[2]
+                                    + "     ");
+            if (i+1 == clockNames.length) {
+                System.out.println();
+            }
             
             clockPanels[i].setPreferredSize(new Dimension(
                     mainPnl.getWidth()*11/24, mainPnl.getHeight()*5/12
@@ -105,18 +123,20 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
 
             mainPnl.add(clockPanels[i], gc);
             
-            // -- Label ----------
+            // -- Label --------------------
             clockLbl = new JLabel(clockNames[i]);
             clockLbl.setHorizontalAlignment(JLabel.CENTER);
-            clockLbl.setBorder(new EmptyBorder(0,120,20,120));
+            clockLbl.setBorder(new EmptyBorder(0,0,20,0));
+            
+            clockLabels[i] = clockLbl;
+            gc.gridy++;
             
             // for debugging
 //            clockPanels[i].setBackground(Color.lightGray);
-//            clockLbl.setBackground(Color.gray);
-//            clockLbl.setOpaque(true);
+//            clockLabels[i].setBackground(Color.gray);
+//            clockLabels[i].setOpaque(true);            
             
-            gc.gridy++;
-            mainPnl.add(clockLbl, gc);
+            mainPnl.add(clockLabels[i], gc);
         }
         
         mainPnl.revalidate();
