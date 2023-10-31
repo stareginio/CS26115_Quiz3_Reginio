@@ -2,7 +2,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import java.util.concurrent.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -20,10 +19,11 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame implements Ac
     private boolean isRunning = false;
     
     public CS26115_DgtlAnlgClockInterface_Reginio(String buttonName) {
-        setTitle("CS26115_Countup_Reginio");
-        
         this.buttonName = buttonName;
         maxHr = buttonName.equals("clock") ? 23 : 99;
+        
+        setTitle("CS26115_" + buttonName.substring(0,1).toUpperCase()
+                + buttonName.substring(1).toLowerCase() + "_Reginio");
         
         mainPnl = new JPanel();
         JPanel namePnl = new JPanel();
