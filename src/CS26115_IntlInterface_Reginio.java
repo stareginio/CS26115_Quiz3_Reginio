@@ -1,19 +1,18 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
-import java.util.concurrent.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
 public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListener {
     
     private final JPanel mainPnl;
+    private final javax.swing.Timer timer;
+    private final String[] clockNames;
     private JPanel[] clockPanels;
-    private javax.swing.Timer timer;
     
     public CS26115_IntlInterface_Reginio() {
-        setTitle("CS26115_Countup_Reginio");
+        setTitle("CS26115_International_Reginio");
                 
         mainPnl = new JPanel();
         JPanel namePnl = new JPanel();
@@ -26,13 +25,11 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
         // for debugging
 //        mainPnl.setBackground(Color.pink);
 //        namePnl.setBackground(Color.green);
-//        spinnerPnl.setBackground(Color.lightGray);
-//        buttonPnl.setBackground(Color.blue);
         
         // == Name Panel ==============================
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         namePnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        namePnl.setBorder(new EmptyBorder(0,30,20,30));
+        namePnl.setBorder(new EmptyBorder(20,0,0,0));
         
         // -- create name label ----------
         JLabel nameLbl = new JLabel("INTERNATIONAL");
@@ -44,48 +41,56 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
         // -- add name panel to main panel ----------
         gc.gridx = 0;
         gc.gridy = 0;
+        gc.gridwidth = 2;
         
         mainPnl.add(namePnl, gc);
         
-        // == Clock Panel ==============================       
+        // == Clock Panels ==============================  
+        // set timezone names
+        clockNames = new String[] {"MANILA", "TOKYO", "NEW YORK", "LONDON"};
+        
         // create timer to update the clock panel repeatedly
         timer = new javax.swing.Timer(1000, this);
         timer.setRepeats(true);
         timer.setInitialDelay(1);
         
-        getClockPanels();
+        // start the timer
+        timer.start();
         
         // == Frame ==============================
         add(mainPnl);
         
-        setSize(800, 780);
+        setSize(800, 820);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        
-        // start the timer
-        timer.start();
     }
     
     public void getClockPanels() {
         // == Variables ==============================
-        String[] clockNames = {"MANILA", "TOKYO", "NEW YORK", "LONDON"};
         JLabel clockLbl;
+        CS26115_Time_Reginio t = new CS26115_Time_Reginio(clockNames);
         
         // == Create the clock panels ==============================
-        clockPanels = new JPanel[] {};
+        if (clockPanels != null) {
+            mainPnl.remove(clockPanels[0]);
+            mainPnl.remove(clockPanels[1]);
+            mainPnl.remove(clockPanels[2]);
+            mainPnl.remove(clockPanels[3]);
+        }
         
-        for (int i=0; clockNames.length < i; i++) {
-            clockPanels[i] = new CS26115_IntlClockPanel_Reginio(clockNames[i]);
+        clockPanels = new JPanel[4];
+        
+        for (int i=0; i < clockNames.length; i++) {
+            // -- Analog Clock ----------            
+            clockPanels[i] = new CS26115_IntlClockPanel_Reginio(
+                    clockNames[i],
+                    t.getTimeZonebyName(clockNames[i])
+            );
             
-            clockPanels[i].setAlignmentY(Component.CENTER_ALIGNMENT);
-            clockPanels[i].setAlignmentX(Component.CENTER_ALIGNMENT);
-            clockPanels[i].setPreferredSize(new Dimension(350,350));
-
-            clockLbl = new JLabel(clockNames[i]);
-            clockLbl.setHorizontalAlignment(JLabel.CENTER);
-
-            clockPanels[i].add(clockLbl);
+            clockPanels[i].setPreferredSize(new Dimension(
+                    mainPnl.getWidth()*11/24, mainPnl.getHeight()*5/12
+            ));
 
             GridBagConstraints gc = new GridBagConstraints();
             gc.fill = GridBagConstraints.HORIZONTAL;
@@ -95,10 +100,23 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
                 gc.gridy = 1;
             } else {
                 gc.gridx = i-2;
-                gc.gridy = 2;
+                gc.gridy = 3;
             }
 
             mainPnl.add(clockPanels[i], gc);
+            
+            // -- Label ----------
+            clockLbl = new JLabel(clockNames[i]);
+            clockLbl.setHorizontalAlignment(JLabel.CENTER);
+            clockLbl.setBorder(new EmptyBorder(0,120,20,120));
+            
+            // for debugging
+//            clockPanels[i].setBackground(Color.lightGray);
+//            clockLbl.setBackground(Color.gray);
+//            clockLbl.setOpaque(true);
+            
+            gc.gridy++;
+            mainPnl.add(clockLbl, gc);
         }
         
         mainPnl.revalidate();
@@ -106,7 +124,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {       
+    public void actionPerformed(ActionEvent e) {
         getClockPanels();
     }
 }
