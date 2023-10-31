@@ -107,7 +107,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
             }
             
             clockPanels[i].setPreferredSize(new Dimension(
-                    mainPnl.getWidth()*11/24, mainPnl.getHeight()*5/12
+                    mainPnl.getWidth()*11/24, mainPnl.getHeight()*2/5
             ));
 
             GridBagConstraints gc = new GridBagConstraints();

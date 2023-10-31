@@ -130,3 +130,5 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
 // https://stackoverflow.com/questions/3858920/stop-a-swing-timer-from-inside-the-action-listener
 // https://stackoverflow.com/questions/6980376/convert-from-days-to-milliseconds
 // https://www.javaprogrammingforums.com/loops-control-statements/28948-making-countdown-timer-using-currenttimemillis-method.html
+// https://stackoverflow.com/questions/24093414/how-can-i-know-time-in-a-specific-country-if-i-am-in-a-differenet-country
+// https://garygregory.wordpress.com/2013/06/18/what-are-the-java-timezone-ids/
