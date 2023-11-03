@@ -74,22 +74,22 @@ public class CS26115_AnalogClock_Reginio {
         );
         
         at = new AffineTransform();
-        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.1), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
         // 2nd mark
-        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.1), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
         // 3rd mark
-        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.1), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
         // 4th mark
-        at.rotate(Math.toRadians(6.25), timeMarkX, timeMarkY);
+        at.rotate(Math.toRadians(6.1), timeMarkX, timeMarkY);
         transformedShape = at.createTransformedShape(minuteMark);
         timeMarks.add(new Area(transformedShape));
         
@@ -99,7 +99,7 @@ public class CS26115_AnalogClock_Reginio {
         // -- 1 to 11 o' clock ----------
         at = new AffineTransform();
         for (int i=1; i < 12; i++) {
-            at.rotate(Math.toRadians(30), timeMarkX, timeMarkY);
+            at.rotate(Math.toRadians(30), timeMarkX+0.1, timeMarkY-0.25);
             transformedShape = at.createTransformedShape(timeMarks);
             timeMarks.add(new Area(transformedShape));
         }
@@ -199,7 +199,7 @@ public class CS26115_AnalogClock_Reginio {
         at = new AffineTransform();
         at.rotate(
                 Math.toRadians(sec*6), 
-                timeMarkX, 
+                timeMarkX+0.25,
                 timeMarkY
         );
         
