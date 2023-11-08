@@ -30,7 +30,7 @@ public class CS26115_Quiz3_IntlInterface_Reginio extends JFrame implements Actio
         // == Name Panel ==============================
         namePnl.setAlignmentX(Component.CENTER_ALIGNMENT);
         namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
-        namePnl.setBorder(new EmptyBorder(10,0,0,0));
+        namePnl.setBorder(new EmptyBorder(5,0,0,0));
         
         // -- create name label ----------
         JLabel nameLbl = new JLabel("INTERNATIONAL");
