@@ -28,9 +28,9 @@ public class CS26115_Quiz3_IntlInterface_Reginio extends JFrame implements Actio
 //        namePnl.setBackground(Color.green);
         
         // == Name Panel ==============================
-        namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         namePnl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        namePnl.setBorder(new EmptyBorder(20,0,0,0));
+        namePnl.setAlignmentY(Component.CENTER_ALIGNMENT);
+        namePnl.setBorder(new EmptyBorder(10,0,0,0));
         
         // -- create name label ----------
         JLabel nameLbl = new JLabel("INTERNATIONAL");
@@ -126,7 +126,7 @@ public class CS26115_Quiz3_IntlInterface_Reginio extends JFrame implements Actio
             // -- Label --------------------
             clockLbl = new JLabel(clockNames[i]);
             clockLbl.setHorizontalAlignment(JLabel.CENTER);
-            clockLbl.setBorder(new EmptyBorder(0,0,20,0));
+            clockLbl.setBorder(new EmptyBorder(10,0,10,0));
             
             clockLabels[i] = clockLbl;
             gc.gridy++;
