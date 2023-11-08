@@ -19,9 +19,9 @@ public class CS26115_Quiz3_IntlClockPanel_Reginio extends JPanel {
         // == Analog clock ==========
         CS26115_Quiz3_AnalogClock_Reginio ac = new CS26115_Quiz3_AnalogClock_Reginio(g2);
         
-        ac.paintBase(getWidth(), getHeight(), 0, 0);
+        ac.paintBase(getWidth(), getHeight(), 0, 6);
         ac.paintHands(getWidth(), time[0], time[1], time[2]);
-        ac.paintRedCircle(getWidth(), getHeight(), 0, 0);
+        ac.paintRedCircle(getWidth(), getHeight(), 0, 6);
         
         setAlignmentY(Component.CENTER_ALIGNMENT);
         setAlignmentX(Component.CENTER_ALIGNMENT);
