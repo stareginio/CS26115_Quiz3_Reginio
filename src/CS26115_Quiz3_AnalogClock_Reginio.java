@@ -12,7 +12,7 @@ public class CS26115_Quiz3_AnalogClock_Reginio {
     }
     
     public void paintBase(int panelWidth, int panelHeight,
-            int digitWidth, int dist) {
+            int topMargin, int baseWidth) {
         // == Variables ==========
         int outerRadius, innerRadius,
                 circleCenterX, circleCenterY,
@@ -28,7 +28,7 @@ public class CS26115_Quiz3_AnalogClock_Reginio {
         // == Create the base shape ==========
         outerRadius = panelWidth * 3/4;
         circleCenterX = panelWidth/2 - outerRadius/2;
-        circleCenterY = panelHeight/2 - outerRadius/2 + digitWidth + dist;
+        circleCenterY = panelHeight/2 - outerRadius/2 + topMargin + baseWidth;
         
         // -- black circle ----------
         circle = new Ellipse2D.Double(
@@ -37,10 +37,10 @@ public class CS26115_Quiz3_AnalogClock_Reginio {
         analogClockBase = new Area(circle);
         
         // -- white circle ----------
-        innerRadius = outerRadius - dist*4;
+        innerRadius = outerRadius - baseWidth*4;
         circle = new Ellipse2D.Double(
-                circleCenterX + dist*2,
-                circleCenterY + dist*2,
+                circleCenterX + baseWidth*2,
+                circleCenterY + baseWidth*2,
                 innerRadius, innerRadius
         );
         analogClockBase.subtract(new Area(circle));
@@ -54,7 +54,7 @@ public class CS26115_Quiz3_AnalogClock_Reginio {
         
         timeMarkDist = 20;
         timeMarkX = panelWidth/2;
-        timeMarkY = panelHeight/2 + digitWidth + dist;
+        timeMarkY = panelHeight/2 + topMargin + baseWidth;
         
         // -- Hour mark ----------
         hourMark = new Rectangle2D.Double(
@@ -211,7 +211,7 @@ public class CS26115_Quiz3_AnalogClock_Reginio {
     }
     
     public void paintRedCircle(int panelWidth, int panelHeight,
-            int digitWidth, int dist) {
+            int topMargin, int tailDist) {
         // == Variables ==========
         int middleRadius;
         Ellipse2D.Double circle;
@@ -221,7 +221,7 @@ public class CS26115_Quiz3_AnalogClock_Reginio {
         middleRadius = 6;
         circle = new Ellipse2D.Double(
                 panelWidth/2 - middleRadius/2,
-                panelHeight/2 - middleRadius/2 + digitWidth + dist,
+                panelHeight/2 - middleRadius/2 + topMargin + tailDist,
                 middleRadius, 
                 middleRadius
         );
