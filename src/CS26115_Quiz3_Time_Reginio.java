@@ -3,16 +3,16 @@ import java.text.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class CS26115_Time_Reginio {
+public class CS26115_Quiz3_Time_Reginio {
     
     private long endTime;
     private int[][] timeZones;
     
     // Empty constructor
-    public CS26115_Time_Reginio() { }
+    public CS26115_Quiz3_Time_Reginio() { }
     
     // Constructor for international
-    public CS26115_Time_Reginio(String[] clockNames) {
+    public CS26115_Quiz3_Time_Reginio(String[] clockNames) {
         timeZones = new int[4][3];
         
         // Get each timezone

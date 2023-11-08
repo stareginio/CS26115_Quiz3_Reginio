@@ -5,7 +5,7 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame
+public class CS26115_Quiz3_DgtlAnlgClockInterface_Reginio extends JFrame
         implements ActionListener {
     
     private final String buttonName;
@@ -19,7 +19,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame
     private long startTime, endTime;
     private boolean isRunning = false;
     
-    public CS26115_DgtlAnlgClockInterface_Reginio(String buttonName) {
+    public CS26115_Quiz3_DgtlAnlgClockInterface_Reginio(String buttonName) {
         this.buttonName = buttonName;
         maxHr = buttonName.equals("clock") ? 23 : 99;
         
@@ -156,7 +156,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame
         }
         
         // == Create new clock panel ==============================
-        clockPnl = new CS26115_DgtlAnlgClockPanel_Reginio(hr, min, sec);
+        clockPnl = new CS26115_Quiz3_DgtlAnlgClockPanel_Reginio(hr, min, sec);
         
         clockPnl.setAlignmentY(Component.CENTER_ALIGNMENT);
         clockPnl.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -174,7 +174,7 @@ public class CS26115_DgtlAnlgClockInterface_Reginio extends JFrame
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        CS26115_Time_Reginio t = new CS26115_Time_Reginio();
+        CS26115_Quiz3_Time_Reginio t = new CS26115_Quiz3_Time_Reginio();
         
         // == Check if countup is running ==============================
         if (isRunning) {

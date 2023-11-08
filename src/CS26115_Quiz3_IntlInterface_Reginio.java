@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListener {
+public class CS26115_Quiz3_IntlInterface_Reginio extends JFrame implements ActionListener {
     
     private final JPanel mainPnl;
     private final javax.swing.Timer timer;
@@ -12,7 +12,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
     private JPanel[] clockPanels;
     private JLabel[] clockLabels;
     
-    public CS26115_IntlInterface_Reginio() {
+    public CS26115_Quiz3_IntlInterface_Reginio() {
         setTitle("CS26115_International_Reginio");
                 
         mainPnl = new JPanel();
@@ -70,7 +70,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
     public void getClockPanels() {
         // == Variables ==============================
         JLabel clockLbl;
-        CS26115_Time_Reginio t = new CS26115_Time_Reginio(clockNames);
+        CS26115_Quiz3_Time_Reginio t = new CS26115_Quiz3_Time_Reginio(clockNames);
         
         // == Create the clock panels and labels ==============================
         if (clockPanels != null) {
@@ -95,7 +95,7 @@ public class CS26115_IntlInterface_Reginio extends JFrame implements ActionListe
             
             // -- Analog Clock --------------------
             clockPanels[i] =
-                    new CS26115_IntlClockPanel_Reginio(clockNames[i], time);
+                    new CS26115_Quiz3_IntlClockPanel_Reginio(clockNames[i], time);
             
             System.out.print(clockNames[i]
                                     + ": " + time[0]

@@ -4,11 +4,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
+public class CS26115_Quiz3_Test_Reginio extends JFrame implements ActionListener {
     
     private JButton clockBtn, countdownBtn, countupBtn, intlBtn;
     
-    public CS26115_Quiz3_Reginio() {
+    public CS26115_Quiz3_Test_Reginio() {
         setTitle("CS26115_Quiz3_Reginio");
         
         JPanel mainPnl = new JPanel();
@@ -88,29 +88,29 @@ public class CS26115_Quiz3_Reginio extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         // Start the program
-        new CS26115_Quiz3_Reginio();
+        new CS26115_Quiz3_Test_Reginio();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clockBtn) {
 //            System.out.println("Clock Button was pressed");
-            new CS26115_DgtlAnlgClockInterface_Reginio("clock");
+            new CS26115_Quiz3_DgtlAnlgClockInterface_Reginio("clock");
             setVisible(false);
         }
         else if (e.getSource() == countdownBtn) {
 //            System.out.println("Countdown Button was pressed");
-            new CS26115_DgtlAnlgClockInterface_Reginio("countdown");
+            new CS26115_Quiz3_DgtlAnlgClockInterface_Reginio("countdown");
             setVisible(false);
         }
         else if (e.getSource() == countupBtn) {
 //            System.out.println("Countup Button was pressed");
-            new CS26115_DgtlAnlgClockInterface_Reginio("countup");
+            new CS26115_Quiz3_DgtlAnlgClockInterface_Reginio("countup");
             setVisible(false);
         }
         else if (e.getSource() == intlBtn) {
 //            System.out.println("International Button was pressed");
-            new CS26115_IntlInterface_Reginio();
+            new CS26115_Quiz3_IntlInterface_Reginio();
             setVisible(false);
         }
     }

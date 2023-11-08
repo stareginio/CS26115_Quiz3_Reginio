@@ -2,12 +2,12 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class CS26115_DgtlAnlgClockPanel_Reginio extends JPanel {
+public class CS26115_Quiz3_DgtlAnlgClockPanel_Reginio extends JPanel {
     
     private final int hr, min, sec;
     
     // Constructor
-    CS26115_DgtlAnlgClockPanel_Reginio(int hr, int min, int sec) {
+    CS26115_Quiz3_DgtlAnlgClockPanel_Reginio(int hr, int min, int sec) {
         this.hr = hr;
         this.min = min;
         this.sec = sec;
@@ -26,8 +26,8 @@ public class CS26115_DgtlAnlgClockPanel_Reginio extends JPanel {
         colonLength = 8;
         dist = 6;           // distance between digits and colons
         startingPoint = (getWidth() - (digitWidth*6 + colonLength*2 + dist*7)) / 2;
-        CS26115_DigitalClock_Reginio dc =
-                new CS26115_DigitalClock_Reginio(g2);
+        CS26115_Quiz3_DigitalClock_Reginio dc =
+                new CS26115_Quiz3_DigitalClock_Reginio(g2);
         
         // -- Create the 1st pair of digits ----------
         dc.paintDigit(startingPoint, hr, "tens");
@@ -52,7 +52,7 @@ public class CS26115_DgtlAnlgClockPanel_Reginio extends JPanel {
                         sec, "ones");
         
         // == Analog clock ==========
-        CS26115_AnalogClock_Reginio ac = new CS26115_AnalogClock_Reginio(g2);
+        CS26115_Quiz3_AnalogClock_Reginio ac = new CS26115_Quiz3_AnalogClock_Reginio(g2);
         
         ac.paintBase(getWidth(), getHeight(), digitWidth, dist);
         ac.paintHands(getWidth(), hr, min, sec);

@@ -2,11 +2,11 @@
 import java.awt.*;
 import java.awt.geom.*;
 
-public class CS26115_DigitalClock_Reginio {
+public class CS26115_Quiz3_DigitalClock_Reginio {
     
     private Graphics2D g2;
     
-    public CS26115_DigitalClock_Reginio(Graphics2D g2) {
+    public CS26115_Quiz3_DigitalClock_Reginio(Graphics2D g2) {
         this.g2 = g2;
     }
     
